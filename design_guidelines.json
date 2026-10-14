@@ -1,0 +1,194 @@
+{
+  "theme": "dark",
+  "archetype": "THE PERFORMANCE PRO / TACTICAL VALORANT ESPORTS",
+  "colors": {
+    "surfaces": [
+      {
+        "name": "page",
+        "kind": "solid",
+        "bg": "#0B1015",
+        "on_bg": "#F5F7FA",
+        "on_bg_muted": "#8A99A8",
+        "roles": {
+          "link": "#38BDF8",
+          "error": "#FF4655",
+          "success": "#22C55E",
+          "accent_highlight": "#FF4655",
+          "metric_value": "#38BDF8"
+        }
+      },
+      {
+        "name": "panel",
+        "kind": "solid",
+        "bg": "#121921",
+        "on_bg": "#F5F7FA",
+        "on_bg_muted": "#8A99A8",
+        "roles": {
+          "border_sharp": "#202E3D",
+          "border_active": "#FF4655",
+          "accent_val": "#38BDF8"
+        }
+      },
+      {
+        "name": "panel_secondary",
+        "kind": "solid",
+        "bg": "#18222D",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#9FB0C2",
+        "roles": {
+          "hover_glow": "#FF465522"
+        }
+      },
+      {
+        "name": "header_nav",
+        "kind": "solid",
+        "bg": "#0E141C",
+        "on_bg": "#F5F7FA",
+        "on_bg_muted": "#7E8E9F",
+        "roles": {
+          "active_tab": "#FF4655",
+          "sens_badge": "#38BDF8"
+        }
+      },
+      {
+        "name": "hud_overlay",
+        "kind": "glass",
+        "contrast_against": "#080C10",
+        "guarantee": "scrim: linear-gradient(rgba(11,16,21,0.85), rgba(11,16,21,0.92)) with backdrop-blur-md",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#A1B4C7",
+        "roles": {
+          "hp_green": "#22C55E",
+          "armor_blue": "#38BDF8",
+          "danger_red": "#FF4655"
+        }
+      },
+      {
+        "name": "buy_menu_card",
+        "kind": "solid",
+        "bg": "#141D27",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#8F9FA9",
+        "roles": {
+          "equipped_tag": "#38BDF8",
+          "hover_border": "#FF4655"
+        }
+      },
+      {
+        "name": "inverse",
+        "kind": "solid",
+        "bg": "#F5F7FA",
+        "on_bg": "#0B1015",
+        "on_bg_muted": "#3A4D61"
+      }
+    ],
+    "accent": "#FF4655",
+    "on_accent": "#FFFFFF",
+    "secondary_accent": "#38BDF8",
+    "on_secondary_accent": "#081018",
+    "tactical_border": "#223142",
+    "tactical_border_glow": "#FF465580"
+  },
+  "typography": {
+    "font_heading": "Space Grotesk Variable, sans-serif",
+    "font_body": "DM Sans Variable, sans-serif",
+    "font_mono": "Geist Mono Variable, monospace",
+    "scale_px": {
+      "display": 56,
+      "h1": 44,
+      "h2": 32,
+      "h3": 22,
+      "body": 16,
+      "caption": 14
+    },
+    "typesetting_rules": [
+      "H1 and H2 use uppercase tactical style with tracking-wide font-black",
+      "Sensitivity, reaction time ms, accuracy % use Geist Mono in Sky Blue (#38BDF8)",
+      "Section overlines use tracking-[0.25em] uppercase text-xs text-[#FF4655]",
+      "Body copy remains DM Sans with relaxed leading and APCA compliant contrast"
+    ]
+  },
+  "entry_surfaces": {
+    "/": "tactical full-width navbar with Workshop/Records/Settings tabs + left rail with Favorites/Editor/Updates, central hero map selector bento grid and quick start cards",
+    "/game": "full-viewport 3D Three.js canvas with HUD overlays (minimap top-left, timer/score top, ammo bottom-right, health/armor bottom-left)",
+    "/editor": "3D flight placement viewport with right-side collapsible tactical inspector panel and floating toolbelt"
+  },
+  "grids_and_layouts": {
+    "app_shell": "fixed tactical topbar (h-16) + left tactical icon-rail (w-16 md:w-20) + scrollable main content stage (bg-[#0B1015])",
+    "workshop_grid": "mode_a_tetris_grid: grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 with filter pill bar on top",
+    "buy_menu_layout": "Valorant in-game 6-column tactical weapon matrix (Sidearms, SMGs, Shotguns, Rifles, Snipers, Heavy + Shields) + right weapon spec inspector (damage falloff curve, spray, viewmodel adjustments)",
+    "records_dashboard": "bento grid: high level stats row (accuracy, headshot %, reaction time, total rounds) + progress charts + scenario history table",
+    "settings_layout": "2-column master-detail: left categorized tabs with search box, center settings fields with live sensitivity 1:1 calculator, right live interactive crosshair and visualizer preview panel"
+  },
+  "visual_enhancers": {
+    "corner_cut_panels": "polygon-clipped or chamfered sharp border tactical cards with 1px border-[#223142] and hover:border-[#FF4655]",
+    "crosshair_preview": "dynamic SVG rendering live crosshair with inner/outer lines, dot, outline, firing error, and color pickers",
+    "map_cards": "16:9 tactical map cards with map banner, badge overlay for difficulty (Easy/Medium/Hard), high score, and instant play trigger",
+    "minimap_radar": "2D canvas overlay drawing player direction cone, bots, spike site, and radar sweep line"
+  },
+  "image_urls": {
+    "maps": [
+      {
+        "category": "map_ascent",
+        "url": "https://images.unsplash.com/photo-1637166185518-058f5896a2e9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwzfHxmdXR1cmlzdGljJTIwdGVjaCUyMGdlb21ldHJ5JTIwZGFyayUyMHRleHR1cmV8ZW58MHx8fHwxNzkxOTc4MjM4fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Tactical tech arena interior representing Ascent / Haven practice environment"
+      },
+      {
+        "category": "map_range",
+        "url": "https://images.unsplash.com/photo-1778957489702-6455b42cf3eb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwyfHxlc3BvcnRzJTIwZ2FtaW5nJTIwbmVvbiUyMGFyZW5hJTIwZGFya3xlbnwwfHx8fDE3OTE5NzgyMzd8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Esports arena night stage lighting for Range shooting arena"
+      },
+      {
+        "category": "tactical_abstract",
+        "url": "https://images.unsplash.com/photo-1638184984605-af1f05249a56?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwdGVjaCUyMGdlb21ldHJ5JTIwZGFyayUyMHRleHR1cmV8ZW58MHx8fHwxNzkxOTc4MjM4fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Layered dark angular geometric facets for tactical background panels"
+      },
+      {
+        "category": "cyber_accent",
+        "url": "https://images.unsplash.com/photo-1679855928057-b7c9b0776c83?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwxfHxlc3BvcnRzJTIwZ2FtaW5nJTIwbmVvbiUyMGFyZW5hJTIwZGFya3xlbnwwfHx8fDE3OTE5NzgyMzd8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Tactical red kinetic curve lines on deep black background"
+      }
+    ]
+  },
+  "motion": {
+    "transitions": "transition-colors duration-150 ease-out, transform 0.15s ease-out",
+    "tab_switch": "framer-motion layoutId pill underline or sliding indicator",
+    "hitmarker_anim": "scale-up and quick fade out (150ms) on crosshair with hit sound",
+    "kill_banner": "tactical skull emblem slide-up with red strobe outline and sound"
+  },
+  "accessibility": {
+    "contrast_standards": "All text complies with WCAG AA / APCA standards on dark navy surfaces (#0B1015, #121921, #18222D).",
+    "colorblind_modes": "Crosshair and target colors support Cyan, Yellow, Green, Magenta, and White alternatives with high-contrast outlines.",
+    "testing_ids": "All interactive elements, buttons, weapon cards, mode filters, sensitivity inputs, and score cards must have data-testid attributes."
+  },
+  "component_paths": {
+    "app_shell": "/app/frontend/src/App.tsx",
+    "css_theme": "/app/frontend/src/index.css",
+    "pages": {
+      "workshop": "/app/frontend/src/pages/Workshop.tsx",
+      "game": "/app/frontend/src/pages/GameArena.tsx",
+      "editor": "/app/frontend/src/pages/WorkshopEditor.tsx",
+      "records": "/app/frontend/src/pages/Records.tsx",
+      "settings": "/app/frontend/src/pages/Settings.tsx"
+    },
+    "tactical_components": {
+      "navbar": "/app/frontend/src/components/tactical/TacticalNavbar.tsx",
+      "left_rail": "/app/frontend/src/components/tactical/LeftRail.tsx",
+      "buy_menu": "/app/frontend/src/components/game/BuyMenuModal.tsx",
+      "hud": "/app/frontend/src/components/game/GameHUD.tsx",
+      "crosshair_preview": "/app/frontend/src/components/settings/CrosshairPreview.tsx",
+      "minimap": "/app/frontend/src/components/game/Minimap.tsx",
+      "results_modal": "/app/frontend/src/components/game/RoundResultsModal.tsx"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Install Three.js packages if needed: yarn add three @types/three",
+    "UI Theme is strictly dark navy-black (#0B1015) with Valorant Red (#FF4655) primary action accents, sky blue (#38BDF8) for sensitivity values and key telemetry numbers, and crisp 1px borders (#223142).",
+    "Implement full dual-language support: Turkish (primary default per user spec) and English (persisted toggle in navbar).",
+    "Implement 1:1 Valorant sensitivity formula (yaw = 0.07 deg/count or 0.00122173 radians per count), supporting mouse sensitivity, ADS multiplier, and Scope multiplier.",
+    "Deliver rich built-in maps & scenarios (Range, Ascent Pre-aim, Haven Angle Hold, Bind Spike Defense, Breeze Micro-Flicks, Icebox Strafe Bots, Split Gridshot).",
+    "Ensure Buy Menu (B key) contains all Valorant weapons (Classic, Ghost, Sheriff, Spectre, Vandal, Phantom, Operator, etc.) and shields with instantaneous equip and recoil/damage stat inspection.",
+    "Add audio synthesis (Web Audio API) for hit sounds, headshot 'dink' sounds, gunshots, and kill sounds without relying on missing external files.",
+    "Provide responsive desktop-first layout for 1920x1080 and 1366x768 targets with zero horizontal overflow."
+  ]
+}
