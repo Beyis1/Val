@@ -14,6 +14,9 @@ export interface BotSpec {
   shoots: boolean;
 }
 
+/** Mirrors backend Prop: editable box object, pos = bottom-centre (metres), size = [w, h, d], yaw in radians. */
+export interface Prop { id: string; pos: number[]; size: number[]; yaw: number; color: string }
+
 export interface ScenarioBase {
   name: string;
   description: string;
@@ -29,6 +32,7 @@ export interface ScenarioBase {
   site: number[] | null;
   bots: BotSpec[];
   allowed_weapons: string[];
+  props?: Prop[];
 }
 
 export interface Scenario extends ScenarioBase {

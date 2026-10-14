@@ -21,6 +21,80 @@ def bot(i, pos, movement="static", stance=None, shoots=False, health=150, rng=2.
     }
 
 
+
+
+def graph(walk):
+    """Grid graph over walkable points (2m spacing, small height steps)."""
+    import collections
+    key = {}
+    for i, (x, y, z) in enumerate(walk):
+        key.setdefault((round(x / 2), round(z / 2)), []).append(i)
+    nb = collections.defaultdict(list)
+    for i, (x, y, z) in enumerate(walk):
+        gx, gz = round(x / 2), round(z / 2)
+        for dx in (-1, 0, 1):
+            for dz in (-1, 0, 1):
+                for j in key.get((gx + dx, gz + dz), []):
+                    if j != i and abs(walk[j][1] - y) < 1.1:
+                        nb[i].append(j)
+    return nb
+
+
+def bfs(nb, start):
+    import collections
+    dist = {start: 0}; prev = {start: None}; q = collections.deque([start])
+    while q:
+        u = q.popleft()
+        for v in nb[u]:
+            if v not in dist:
+                dist[v] = dist[u] + 1; prev[v] = u; q.append(v)
+    return dist, prev
+
+
+def route_scenarios(walk, rng):
+    """Spawn + walkable route; pre-aim bots spaced along it, offset to the sides (corners)."""
+    import math
+    nb = graph(walk)
+    if len(walk) < 50:
+        return None
+    best = None
+    for _ in range(25):
+        s = rng.randrange(len(walk)); d, prev = bfs(nb, s)
+        if len(d) < len(walk) * 0.5:
+            continue
+        far = [i for i, k in d.items() if 24 <= k <= 32]
+        if far:
+            best = (s, d, prev, rng.choice(far)); break
+    if not best:
+        return None
+    s, d, prev, t = best
+    path = []; u = t
+    while u is not None:
+        path.append(u); u = prev[u]
+    path.reverse()
+    bots = []
+    for k in range(4, len(path), 3):
+        c = walk[path[k]]
+        side = [j for j, kk in d.items() if abs(kk - k) <= 1 and 3 <= math.dist((walk[j][0], walk[j][2]), (c[0], c[2])) <= 8]
+        p = walk[rng.choice(side)] if side else c
+        if all(math.dist(p, b) > 4 for b in bots):
+            bots.append(p)
+    sp = walk[s]; nxt = walk[path[min(3, len(path) - 1)]]
+    yaw = math.atan2(-(nxt[0] - sp[0]), -(nxt[2] - sp[2]))
+    site_c = [j for j, kk in d.items() if 7 <= kk <= 12]
+    site = walk[rng.choice(site_c)] if site_c else walk[path[len(path) // 2]]
+    dsite, _ = bfs(nb, walk.index(site))
+    around = [walk[j] for j, kk in dsite.items() if 3 <= kk <= 10 and d.get(j, 0) >= 5]
+    rng.shuffle(around)
+    sbots = []
+    for p in around:
+        if all(math.dist(p, b) > 4 for b in sbots):
+            sbots.append(p)
+        if len(sbots) >= 6:
+            break
+    syaw = math.atan2(-(site[0] - sp[0]), -(site[2] - sp[2]))
+    return {"preaim": {"spawn": sp, "yaw": round(yaw, 4), "bots": bots[:10]}, "spike": {"spawn": sp, "yaw": round(syaw, 4), "site": site, "bots": sbots}}
+
 items = []
 # --- range (always available) ---
 range_defs = [
@@ -63,6 +137,9 @@ for mid, mname in NAMES.items():
         continue
     meta = json.loads(meta_p.read_text())
     sc = meta.get("scenarios", {})
+    rt = route_scenarios(meta.get("walk", []), random.Random(hash(mid) % 1000))
+    if rt:
+        sc = {**sc, **rt}
     available.append({"id": mid, "name": mname, "thumb": (PUB / mid / "thumb.jpg").exists(), "minimap": meta.get("minimap")})
     if "preaim" in sc:
         s = sc["preaim"]

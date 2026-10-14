@@ -45,14 +45,20 @@ export const DEFAULT_STYLE: CrosshairStyle = {
 
 export const DEFAULT_SNIPER: SniperStyle = { centerDot: true, color: "#FFFFFF", thickness: 1, opacity: 0.75 };
 
+/** App default = user profile code `0;P;o;1;d;1;f;0;0b;0;1b;0`: white centre dot (2px), outline opacity 1, no inner/outer lines. */
+export const DEFAULT_CROSSHAIR_CODE = "0;P;o;1;d;1;f;0;0b;0;1b;0";
+const DOT_STYLE: CrosshairStyle = {
+  ...structuredClone(DEFAULT_STYLE), centerDot: true, outlineOpacity: 1,
+  inner: { ...DEFAULT_STYLE.inner, show: false }, outer: { ...DEFAULT_STYLE.outer, show: false },
+};
 export const DEFAULT_CROSSHAIR: CrosshairSettings = {
-  primary: structuredClone(DEFAULT_STYLE),
+  primary: structuredClone(DOT_STYLE),
   adsUsePrimary: true,
-  ads: structuredClone(DEFAULT_STYLE),
+  ads: structuredClone(DOT_STYLE),
   sniper: structuredClone(DEFAULT_SNIPER),
 };
 
-const style = (p: Partial<CrosshairStyle> & { inner?: Partial<CrosshairLines>; outer?: Partial<CrosshairLines> }): CrosshairStyle => ({
+const style = (p: Partial<Omit<CrosshairStyle, "inner" | "outer">> & { inner?: Partial<CrosshairLines>; outer?: Partial<CrosshairLines> }): CrosshairStyle => ({
   ...structuredClone(DEFAULT_STYLE), ...p,
   inner: { ...DEFAULT_STYLE.inner, ...(p.inner ?? {}) },
   outer: { ...DEFAULT_STYLE.outer, ...(p.outer ?? {}) },
@@ -135,6 +141,7 @@ function applyKV(s: CrosshairStyle, k: string, v: string, customColor: { c?: str
     case "d": s.centerDot = on; break;
     case "z": s.dotThickness = num; break;
     case "a": s.dotOpacity = num; break;
+    case "f": break; // "fade crosshair with firing error" — 0 (off) is the only behaviour this trainer renders
   }
 }
 
@@ -142,7 +149,7 @@ function applyKV(s: CrosshairStyle, k: string, v: string, customColor: { c?: str
 export function decodeCrosshair(code: string): CrosshairSettings {
   const tokens = code.trim().split(";").map((t) => t.trim()).filter((t) => t.length > 0);
   if (tokens.length < 2 || tokens[0] !== "0") throw new Error("invalid code");
-  const res: CrosshairSettings = structuredClone(DEFAULT_CROSSHAIR);
+  const res: CrosshairSettings = { primary: structuredClone(DEFAULT_STYLE), adsUsePrimary: true, ads: structuredClone(DEFAULT_STYLE), sniper: structuredClone(DEFAULT_SNIPER) };
   let section: "P" | "A" | "S" | null = null; let sawA = false;
   const cc: Record<string, { c?: string }> = { P: {}, A: {}, S: {} };
   let i = 1;

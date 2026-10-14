@@ -27,6 +27,15 @@ class BotSpec(BaseModel):
     shoots: bool = False
 
 
+class Prop(BaseModel):
+    """Editable map object: axis-aligned box (rotated by yaw), pos = bottom-centre. Rendered and collidable."""
+    id: str = Field(default_factory=_uid)
+    pos: list[float] = Field(min_length=3, max_length=3)
+    size: list[float] = Field(default_factory=lambda: [1.0, 1.0, 1.0], min_length=3, max_length=3)
+    yaw: float = 0.0
+    color: str = Field(default="#3A4556", pattern=r"^#[0-9A-Fa-f]{6}$")
+
+
 class ScenarioBase(BaseModel):
     name: str = Field(min_length=1, max_length=80)
     description: str = Field(default="", max_length=600)
@@ -42,6 +51,7 @@ class ScenarioBase(BaseModel):
     site: Optional[list[float]] = None
     bots: list[BotSpec] = Field(default_factory=list, max_length=60)
     allowed_weapons: list[str] = Field(default_factory=list)
+    props: list[Prop] = Field(default_factory=list, max_length=300)
 
 
 class Scenario(ScenarioBase):

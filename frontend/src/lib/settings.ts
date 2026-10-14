@@ -7,11 +7,11 @@ import type { ShieldId } from "@/game/weapons";
 
 export type ActionId =
   | "forward" | "back" | "left" | "right" | "jump" | "crouch" | "walk" | "use" | "reload"
-  | "primary" | "secondary" | "melee" | "buy" | "scoreboard" | "fire" | "ads";
+  | "primary" | "secondary" | "melee" | "buy" | "scoreboard" | "fire" | "ads" | "inspect";
 
 export const ACTIONS: ActionId[] = [
   "forward", "back", "left", "right", "jump", "crouch", "walk", "use", "reload",
-  "primary", "secondary", "melee", "buy", "scoreboard", "fire", "ads",
+  "primary", "secondary", "melee", "buy", "scoreboard", "fire", "ads", "inspect",
 ];
 
 export interface ViewmodelAdjust { rx: number; ry: number; rz: number; scale: number; px: number; py: number; pz: number }
@@ -30,27 +30,32 @@ export interface AppSettings {
   highContrast: boolean;
   keybinds: Record<ActionId, [string, string]>;
   crosshair: CrosshairSettings;
-  video: { fov: number; quality: "low" | "medium" | "high"; fpsCap: number; showFps: boolean; fullscreen: boolean };
-  audio: { master: number; fireSound: "classic" | "soft" | "off"; hitSound: "tick" | "dink" | "pop" | "off"; killSound: "chime" | "pulse" | "off"; headshotDink: boolean };
-  range: { targetColor: string; targetSize: number; botHealth: number; botSpeed: number; gridTargets: number; trackingSpeed: number };
+  video: { fov: number; quality: "low" | "medium" | "high"; fpsCap: number; showFps: boolean; displayMode: DisplayMode; resolution: string; autoScale: boolean; renderScale: number; effects: boolean };
+  audio: { master: number; sfx: number; fireSound: "classic" | "soft" | "off"; hitSound: "tick" | "dink" | "pop" | "off"; killSound: "chime" | "pulse" | "off"; headshotDink: boolean };
+  range: { targetColor: string; targetSize: number; botHealth: number; botSpeed: number; gridTargets: number; trackingSpeed: number; respawnBots: boolean };
   loadout: { primary: string | null; secondary: string; shield: ShieldId };
   viewmodel: Record<string, ViewmodelAdjust>;
   showViewmodel: boolean;
+  fpAgent: string;
+  skins: Record<string, string>;
+  defaultsVersion: number;
 }
+
+export type DisplayMode = "fullscreen" | "borderless" | "windowed";
 
 export const DEFAULT_KEYBINDS: Record<ActionId, [string, string]> = {
   forward: ["KeyW", ""], back: ["KeyS", ""], left: ["KeyA", ""], right: ["KeyD", ""],
   jump: ["Space", "WheelDown"], crouch: ["ControlLeft", "KeyC"], walk: ["ShiftLeft", ""], use: ["KeyF", ""],
   reload: ["KeyR", ""], primary: ["Digit1", ""], secondary: ["Digit2", ""], melee: ["Digit3", ""],
-  buy: ["KeyB", ""], scoreboard: ["Tab", ""], fire: ["Mouse0", ""], ads: ["Mouse2", ""],
+  buy: ["KeyB", ""], scoreboard: ["Tab", ""], fire: ["Mouse0", ""], ads: ["Mouse2", ""], inspect: ["KeyY", ""],
 };
 
 export const DEFAULT_LOADOUT = { primary: "vandal" as string | null, secondary: "classic", shield: "heavy" as ShieldId };
 
 export const DEFAULT_SETTINGS: AppSettings = {
   language: "tr",
-  sensitivity: 0.35,
-  dpi: 800,
+  sensitivity: 0.1,
+  dpi: 1600,
   adsMultiplier: 1,
   scopeMultiplier: 1,
   adsMode: "toggle",
@@ -60,13 +65,28 @@ export const DEFAULT_SETTINGS: AppSettings = {
   highContrast: false,
   keybinds: DEFAULT_KEYBINDS,
   crosshair: DEFAULT_CROSSHAIR,
-  video: { fov: 103, quality: "medium", fpsCap: 0, showFps: true, fullscreen: true },
-  audio: { master: 0.7, fireSound: "classic", hitSound: "tick", killSound: "chime", headshotDink: true },
-  range: { targetColor: "#FF4655", targetSize: 1, botHealth: 150, botSpeed: 3.6, gridTargets: 3, trackingSpeed: 1 },
+  video: { fov: 103, quality: "high", fpsCap: 0, showFps: true, displayMode: "fullscreen", resolution: "native", autoScale: true, renderScale: 1, effects: true },
+  audio: { master: 0.7, sfx: 0.8, fireSound: "classic", hitSound: "tick", killSound: "chime", headshotDink: true },
+  range: { targetColor: "#FF4655", targetSize: 1, botHealth: 150, botSpeed: 3.6, gridTargets: 3, trackingSpeed: 1, respawnBots: false },
   loadout: DEFAULT_LOADOUT,
   viewmodel: {},
   showViewmodel: true,
+  fpAgent: "jett",
+  skins: {},
+  defaultsVersion: 3,
 };
+
+/** One-time moves of older saved profiles: v2 = sens 0.1 @ 1600 DPI + dot crosshair, v3 = viewmodel visible. */
+function migrate(raw: unknown, merged: AppSettings): AppSettings {
+  const v = isObj(raw) && typeof raw.defaultsVersion === "number" ? raw.defaultsVersion : 1;
+  if (v < 2) {
+    merged.sensitivity = DEFAULT_SETTINGS.sensitivity; merged.dpi = DEFAULT_SETTINGS.dpi;
+    merged.crosshair = structuredClone(DEFAULT_CROSSHAIR);
+  }
+  // v3: saved profiles had the first-person viewmodel switched off (arms + weapon invisible) — turn it back on once
+  if (v < 3) { merged.showViewmodel = true; merged.defaultsVersion = 3; }
+  return merged;
+}
 
 const LS_KEY = "valaim.settings.v1";
 
@@ -77,7 +97,7 @@ function deepMerge<T>(base: T, over: unknown): T {
   const out: Record<string, unknown> = { ...(base as Record<string, unknown>) };
   for (const [k, v] of Object.entries(over)) {
     const b = (base as Record<string, unknown>)[k];
-    if (k === "viewmodel" && isObj(v)) out[k] = v;
+    if ((k === "viewmodel" || k === "skins") && isObj(v)) out[k] = v;
     else if (isObj(b) && isObj(v)) out[k] = deepMerge(b, v);
     else if (v !== undefined && (b === undefined || typeof b === typeof v || b === null || v === null)) out[k] = v;
   }
@@ -87,7 +107,7 @@ function deepMerge<T>(base: T, over: unknown): T {
 function loadLocal(): AppSettings {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    if (raw) return deepMerge(structuredClone(DEFAULT_SETTINGS), JSON.parse(raw));
+    if (raw) { const parsed: unknown = JSON.parse(raw); return migrate(parsed, deepMerge(structuredClone(DEFAULT_SETTINGS), parsed)); }
   } catch {
     /* ignore */
   }
@@ -158,7 +178,7 @@ export function useSettingsBootstrap() {
   if (q.data && !hydrated) {
     hydrated = true;
     if (Object.keys(q.data.data).length > 0) {
-      state = deepMerge(structuredClone(DEFAULT_SETTINGS), q.data.data);
+      state = migrate(q.data.data, deepMerge(structuredClone(DEFAULT_SETTINGS), q.data.data));
       try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch { /* ignore */ }
       queueMicrotask(emit);
     }

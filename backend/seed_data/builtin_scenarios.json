@@ -1,0 +1,4635 @@
+[
+ {
+  "id": "b-range-gridshot",
+  "name": "Gridshot",
+  "name_en": "Gridshot",
+  "description": "Duvardaki üç hedefi olabildiğince hızlı vur. Her vuruşta yeni hedef belirir.",
+  "description_en": "Hit the three wall targets as fast as you can. A new one spawns after every hit.",
+  "map_id": "range",
+  "type": "gridshot",
+  "difficulty": "easy",
+  "duration": 60,
+  "bots_shoot": false,
+  "spawn": [
+   0,
+   0,
+   8
+  ],
+  "spawn_yaw": 0.0,
+  "site": null,
+  "bots": [],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-range-flick",
+  "name": "Flick Atışı",
+  "name_en": "Flick Shot",
+  "description": "Görüş alanında rastgele beliren tek hedefe hızlıca flick at. Tepki süren ölçülür.",
+  "description_en": "Flick to a single target that pops up randomly in your view. Reaction time is measured.",
+  "map_id": "range",
+  "type": "flick",
+  "difficulty": "medium",
+  "duration": 60,
+  "bots_shoot": false,
+  "spawn": [
+   0,
+   0,
+   8
+  ],
+  "spawn_yaw": 0.0,
+  "site": null,
+  "bots": [],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-range-tracking",
+  "name": "Takip (Tracking)",
+  "name_en": "Tracking",
+  "description": "Hareket eden hedefi nişangahında tut. Hedefte kaldığın süre puanını belirler.",
+  "description_en": "Keep your crosshair on the moving target. Time on target decides your score.",
+  "map_id": "range",
+  "type": "tracking",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   0,
+   0,
+   8
+  ],
+  "spawn_yaw": 0.0,
+  "site": null,
+  "bots": [],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-range-strafe",
+  "name": "Strafe Bot",
+  "name_en": "Strafe Bot",
+  "description": "Sağa sola strafe atan botları indir. Kafa vuruşu ekstra puan verir.",
+  "description_en": "Take down bots that strafe left and right. Headshots score extra.",
+  "map_id": "range",
+  "type": "strafe",
+  "difficulty": "medium",
+  "duration": 60,
+  "bots_shoot": false,
+  "spawn": [
+   0,
+   0,
+   8
+  ],
+  "spawn_yaw": 0.0,
+  "site": null,
+  "bots": [],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-range-gridshot-hard",
+  "name": "Gridshot Ultra",
+  "name_en": "Gridshot Ultra",
+  "description": "30 saniyelik zor Gridshot: daha küçük hedefler.",
+  "description_en": "Hard 30s Gridshot with smaller targets.",
+  "map_id": "range",
+  "type": "gridshot",
+  "difficulty": "hard",
+  "duration": 30,
+  "bots_shoot": false,
+  "spawn": [
+   0,
+   0,
+   8
+  ],
+  "spawn_yaw": 0.0,
+  "site": null,
+  "bots": [],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-range-strafe-duel",
+  "name": "Strafe Düellosu",
+  "name_en": "Strafe Duel",
+  "description": "Ateş eden strafe botlarına karşı hayatta kal.",
+  "description_en": "Survive strafing bots that shoot back.",
+  "map_id": "range",
+  "type": "strafe",
+  "difficulty": "hard",
+  "duration": 60,
+  "bots_shoot": true,
+  "spawn": [
+   0,
+   0,
+   8
+  ],
+  "spawn_yaw": 0.0,
+  "site": null,
+  "bots": [],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-abyss-preaim",
+  "name": "Abyss Ön-Nişan Rotası",
+  "name_en": "Abyss Pre-aim Route",
+  "description": "Abyss üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Abyss. Pre-aim every angle.",
+  "map_id": "abyss",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   4.93,
+   12.0,
+   8.172
+  ],
+  "spawn_yaw": -2.1588,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     8.93,
+     12.0,
+     14.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     10.93,
+     8.0,
+     22.172
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     6.93,
+     8.0,
+     20.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     0.93,
+     8.0,
+     18.172
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -0.07,
+     8.0,
+     6.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -2.07,
+     8.0,
+     -6.828
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     -2.07,
+     8.0,
+     -12.828
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-abyss-hold",
+  "name": "Abyss Açı Tutma",
+  "name_en": "Abyss Angle Hold",
+  "description": "Abyss üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Abyss and shoot bots that peek the angles.",
+  "map_id": "abyss",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   7.93,
+   8.0,
+   36.172
+  ],
+  "spawn_yaw": -1.1407,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     35.93,
+     8.0,
+     38.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     35.93,
+     8.0,
+     33.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     5.93,
+     12.0,
+     5.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     13.93,
+     8.0,
+     22.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     30.93,
+     8.0,
+     36.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     5.93,
+     12.0,
+     12.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     35.93,
+     8.0,
+     44.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     7.93,
+     8.0,
+     48.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-abyss-spike",
+  "name": "Abyss Spike Savunması",
+  "name_en": "Abyss Spike Retake",
+  "description": "Spike kuruldu! Abyss sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Abyss and defuse with F before it detonates.",
+  "map_id": "abyss",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   4.93,
+   12.0,
+   8.172
+  ],
+  "spawn_yaw": -2.4981,
+  "site": [
+   10.93,
+   8.0,
+   16.172
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -2.07,
+     8.0,
+     18.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     4.93,
+     8.0,
+     16.172
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     0.93,
+     8.0,
+     22.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -6.07,
+     8.0,
+     8.172
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -8.07,
+     8.0,
+     18.172
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -6.07,
+     8.0,
+     14.172
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-ascent-preaim",
+  "name": "Ascent Ön-Nişan Rotası",
+  "name_en": "Ascent Pre-aim Route",
+  "description": "Ascent üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Ascent. Pre-aim every angle.",
+  "map_id": "ascent",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   66.682,
+   5.0,
+   -76.212
+  ],
+  "spawn_yaw": 2.5536,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     58.682,
+     5.0,
+     -74.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     60.682,
+     4.01,
+     -60.212
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     50.682,
+     4.0,
+     -60.212
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     50.682,
+     4.0,
+     -48.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     40.682,
+     3.812,
+     -48.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     46.682,
+     4.0,
+     -38.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     46.682,
+     4.0,
+     -30.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     32.682,
+     4.0,
+     -18.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-ascent-hold",
+  "name": "Ascent Açı Tutma",
+  "name_en": "Ascent Angle Hold",
+  "description": "Ascent üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Ascent and shoot bots that peek the angles.",
+  "map_id": "ascent",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   -1.318,
+   2.0,
+   -12.212
+  ],
+  "spawn_yaw": -2.4009,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     15.682,
+     3.0,
+     0.788
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     12.682,
+     3.0,
+     -11.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     0.682,
+     3.369,
+     12.788
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     5.682,
+     3.261,
+     6.788
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     18.682,
+     3.032,
+     -2.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -3.318,
+     2.0,
+     -0.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     35.682,
+     3.999,
+     -5.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     -0.318,
+     2.916,
+     5.788
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-ascent-spike",
+  "name": "Ascent Spike Savunması",
+  "name_en": "Ascent Spike Retake",
+  "description": "Spike kuruldu! Ascent sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Ascent and defuse with F before it detonates.",
+  "map_id": "ascent",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   66.682,
+   5.0,
+   -76.212
+  ],
+  "spawn_yaw": 2.1588,
+  "site": [
+   48.682,
+   4.0,
+   -64.212
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     66.682,
+     3.812,
+     -52.212
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     44.682,
+     4.001,
+     -52.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     62.682,
+     4.0,
+     -52.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     60.682,
+     4.0,
+     -62.212
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     48.682,
+     3.812,
+     -80.212
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     42.682,
+     4.0,
+     -48.212
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-bind-preaim",
+  "name": "Bind Ön-Nişan Rotası",
+  "name_en": "Bind Pre-aim Route",
+  "description": "Bind üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Bind. Pre-aim every angle.",
+  "map_id": "bind",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   122.39,
+   4.0,
+   32.325
+  ],
+  "spawn_yaw": -0.3218,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     128.39,
+     3.83,
+     22.325
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     130.39,
+     2.83,
+     18.325
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     122.39,
+     1.0,
+     18.325
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     130.39,
+     1.0,
+     4.325
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     122.39,
+     0.968,
+     4.325
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     118.39,
+     1.275,
+     -4.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     112.39,
+     4.784,
+     -14.675
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     128.39,
+     1.0,
+     -20.675
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-bind-hold",
+  "name": "Bind Açı Tutma",
+  "name_en": "Bind Angle Hold",
+  "description": "Bind üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Bind and shoot bots that peek the angles.",
+  "map_id": "bind",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   82.39,
+   1.57,
+   -39.675
+  ],
+  "spawn_yaw": 2.3802,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     57.39,
+     0.255,
+     -32.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     57.39,
+     0.279,
+     -38.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     93.39,
+     2.193,
+     -28.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     86.39,
+     1.004,
+     -4.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     59.39,
+     0.207,
+     -25.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     79.39,
+     1.374,
+     -59.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     76.39,
+     1.125,
+     -53.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     88.39,
+     1.267,
+     -9.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-bind-spike",
+  "name": "Bind Spike Savunması",
+  "name_en": "Bind Spike Retake",
+  "description": "Spike kuruldu! Bind sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Bind and defuse with F before it detonates.",
+  "map_id": "bind",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   122.39,
+   4.0,
+   32.325
+  ],
+  "spawn_yaw": -0.3588,
+  "site": [
+   128.39,
+   2.331,
+   16.325
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     138.39,
+     0.813,
+     2.325
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     120.39,
+     1.0,
+     16.325
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     124.39,
+     0.664,
+     32.325
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     126.39,
+     1.0,
+     -0.675
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     114.39,
+     1.0,
+     14.325
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     112.39,
+     1.0,
+     22.325
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-breeze-preaim",
+  "name": "Breeze Ön-Nişan Rotası",
+  "name_en": "Breeze Pre-aim Route",
+  "description": "Breeze üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Breeze. Pre-aim every angle.",
+  "map_id": "breeze",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   -8.41,
+   1.475,
+   -32.611
+  ],
+  "spawn_yaw": 2.8198,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -6.41,
+     1.981,
+     -22.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -14.41,
+     1.435,
+     -18.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -8.41,
+     1.953,
+     -12.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -16.41,
+     1.742,
+     -6.611
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     0.59,
+     2.009,
+     2.389
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     10.59,
+     2.046,
+     6.389
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     8.59,
+     2.056,
+     12.389
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     0.59,
+     2.398,
+     18.389
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-breeze-hold",
+  "name": "Breeze Açı Tutma",
+  "name_en": "Breeze Angle Hold",
+  "description": "Breeze üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Breeze and shoot bots that peek the angles.",
+  "map_id": "breeze",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   -3.41,
+   2.0,
+   -13.611
+  ],
+  "spawn_yaw": 1.8034,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -13.41,
+     0.939,
+     -33.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -23.41,
+     0.316,
+     -22.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -22.41,
+     1.084,
+     2.389
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -23.41,
+     0.987,
+     -2.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -7.41,
+     2.269,
+     -31.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -0.41,
+     2.853,
+     0.389
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     -16.41,
+     1.714,
+     -2.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     3.59,
+     2.0,
+     -0.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-breeze-spike",
+  "name": "Breeze Spike Savunması",
+  "name_en": "Breeze Spike Retake",
+  "description": "Spike kuruldu! Breeze sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Breeze and defuse with F before it detonates.",
+  "map_id": "breeze",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   -8.41,
+   1.475,
+   -32.611
+  ],
+  "spawn_yaw": 2.7828,
+  "site": [
+   -14.41,
+   1.56,
+   -16.611
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     2.59,
+     2.0,
+     -8.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -20.41,
+     1.274,
+     0.389
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -4.41,
+     2.0,
+     -10.611
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -8.41,
+     1.98,
+     -10.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     2.59,
+     2.0,
+     -22.611
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     6.59,
+     1.989,
+     -8.611
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-fracture-preaim",
+  "name": "Fracture Ön-Nişan Rotası",
+  "name_en": "Fracture Pre-aim Route",
+  "description": "Fracture üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Fracture. Pre-aim every angle.",
+  "map_id": "fracture",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   130.776,
+   3.025,
+   -30.24
+  ],
+  "spawn_yaw": 2.3562,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     122.776,
+     3.731,
+     -26.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     132.776,
+     2.458,
+     -18.24
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     128.776,
+     2.474,
+     -10.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     126.776,
+     2.166,
+     -6.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     120.776,
+     0.5,
+     2.76
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     130.776,
+     4.381,
+     10.76
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     122.776,
+     4.599,
+     16.76
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     116.776,
+     5.077,
+     14.76
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-8",
+    "pos": [
+     110.776,
+     5.507,
+     18.76
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-fracture-hold",
+  "name": "Fracture Açı Tutma",
+  "name_en": "Fracture Angle Hold",
+  "description": "Fracture üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Fracture and shoot bots that peek the angles.",
+  "map_id": "fracture",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   136.776,
+   2.493,
+   -28.24
+  ],
+  "spawn_yaw": 2.2344,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     122.776,
+     1.029,
+     1.76
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     127.776,
+     2.5,
+     -10.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     132.776,
+     2.537,
+     -1.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     134.776,
+     2.537,
+     -13.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     124.776,
+     3.485,
+     -25.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     111.776,
+     4.0,
+     -31.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     104.776,
+     4.0,
+     -30.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     124.776,
+     3.914,
+     -30.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-fracture-spike",
+  "name": "Fracture Spike Savunması",
+  "name_en": "Fracture Spike Retake",
+  "description": "Spike kuruldu! Fracture sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Fracture and defuse with F before it detonates.",
+  "map_id": "fracture",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   130.776,
+   3.025,
+   -30.24
+  ],
+  "spawn_yaw": 2.9229,
+  "site": [
+   126.776,
+   2.166,
+   -12.24
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     132.776,
+     2.58,
+     2.76
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     126.776,
+     2.577,
+     2.76
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     134.776,
+     2.537,
+     -14.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     132.776,
+     2.537,
+     -2.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     132.776,
+     2.5,
+     -20.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     138.776,
+     2.694,
+     -12.24
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-haven-preaim",
+  "name": "Haven Ön-Nişan Rotası",
+  "name_en": "Haven Pre-aim Route",
+  "description": "Haven üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Haven. Pre-aim every angle.",
+  "map_id": "haven",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   -24.681,
+   1.0,
+   -60.258
+  ],
+  "spawn_yaw": -2.5536,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -20.681,
+     0.998,
+     -50.258
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -14.681,
+     1.001,
+     -46.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -8.681,
+     1.021,
+     -50.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -0.681,
+     1.0,
+     -40.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     6.319,
+     1.014,
+     -42.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     12.319,
+     1.0,
+     -42.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     20.319,
+     3.0,
+     -40.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     24.319,
+     3.0,
+     -42.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-haven-hold",
+  "name": "Haven Açı Tutma",
+  "name_en": "Haven Angle Hold",
+  "description": "Haven üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Haven and shoot bots that peek the angles.",
+  "map_id": "haven",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   22.319,
+   1.887,
+   -72.258
+  ],
+  "spawn_yaw": 1.8086,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     19.319,
+     3.0,
+     -84.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     0.319,
+     1.089,
+     -58.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     14.319,
+     0.994,
+     -63.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     13.319,
+     2.99,
+     -92.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     18.319,
+     3.0,
+     -56.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -3.681,
+     1.057,
+     -56.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     6.319,
+     0.905,
+     -63.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     11.319,
+     3.04,
+     -80.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-haven-spike",
+  "name": "Haven Spike Savunması",
+  "name_en": "Haven Spike Retake",
+  "description": "Spike kuruldu! Haven sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Haven and defuse with F before it detonates.",
+  "map_id": "haven",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   -24.681,
+   1.0,
+   -60.258
+  ],
+  "spawn_yaw": -1.2925,
+  "site": [
+   -10.681,
+   2.0,
+   -64.258
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     6.319,
+     1.043,
+     -72.258
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -0.681,
+     1.041,
+     -54.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -6.681,
+     1.019,
+     -46.258
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -24.681,
+     1.342,
+     -72.258
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -0.681,
+     1.028,
+     -72.258
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     0.319,
+     1.089,
+     -58.258
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-icebox-preaim",
+  "name": "Icebox Ön-Nişan Rotası",
+  "name_en": "Icebox Pre-aim Route",
+  "description": "Icebox üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Icebox. Pre-aim every angle.",
+  "map_id": "icebox",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   -46.394,
+   1.042,
+   44.15
+  ],
+  "spawn_yaw": -0.0,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -40.394,
+     1.034,
+     38.15
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -44.394,
+     1.0,
+     30.15
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -28.394,
+     1.0,
+     22.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -24.394,
+     1.02,
+     20.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -28.394,
+     1.022,
+     10.15
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -14.394,
+     1.081,
+     6.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     -18.394,
+     1.052,
+     -0.85
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     -4.394,
+     1.001,
+     -6.85
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-8",
+    "pos": [
+     -12.394,
+     1.019,
+     -12.85
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-icebox-hold",
+  "name": "Icebox Açı Tutma",
+  "name_en": "Icebox Angle Hold",
+  "description": "Icebox üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Icebox and shoot bots that peek the angles.",
+  "map_id": "icebox",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   -48.394,
+   1.017,
+   -16.85
+  ],
+  "spawn_yaw": -1.6987,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -38.394,
+     5.336,
+     -32.85
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -17.394,
+     1.024,
+     -16.85
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -25.394,
+     1.029,
+     8.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -68.394,
+     1.044,
+     -16.85
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -30.394,
+     5.25,
+     -37.85
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -25.394,
+     1.035,
+     3.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     -35.394,
+     1.019,
+     -16.85
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     -76.394,
+     1.018,
+     -15.85
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-icebox-spike",
+  "name": "Icebox Spike Savunması",
+  "name_en": "Icebox Spike Retake",
+  "description": "Spike kuruldu! Icebox sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Icebox and defuse with F before it detonates.",
+  "map_id": "icebox",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   -46.394,
+   1.042,
+   44.15
+  ],
+  "spawn_yaw": -0.7854,
+  "site": [
+   -26.394,
+   1.0,
+   24.15
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -32.394,
+     1.049,
+     4.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -40.394,
+     1.081,
+     10.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -24.394,
+     1.0,
+     12.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -32.394,
+     1.0,
+     24.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -24.394,
+     1.025,
+     34.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -16.394,
+     1.09,
+     24.15
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-lotus-preaim",
+  "name": "Lotus Ön-Nişan Rotası",
+  "name_en": "Lotus Pre-aim Route",
+  "description": "Lotus üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Lotus. Pre-aim every angle.",
+  "map_id": "lotus",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   106.701,
+   5.0,
+   6.025
+  ],
+  "spawn_yaw": 2.3562,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     104.701,
+     5.005,
+     16.025
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     94.701,
+     4.991,
+     16.025
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     88.701,
+     5.0,
+     26.025
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     96.701,
+     5.697,
+     34.025
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     112.701,
+     5.96,
+     40.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     108.701,
+     5.96,
+     42.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     106.701,
+     6.761,
+     48.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     106.701,
+     7.278,
+     54.025
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-8",
+    "pos": [
+     106.701,
+     7.278,
+     64.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-lotus-hold",
+  "name": "Lotus Açı Tutma",
+  "name_en": "Lotus Angle Hold",
+  "description": "Lotus üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Lotus and shoot bots that peek the angles.",
+  "map_id": "lotus",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   109.701,
+   6.103,
+   23.025
+  ],
+  "spawn_yaw": 0.994,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     100.701,
+     5.0,
+     13.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     108.701,
+     5.007,
+     7.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     96.701,
+     5.0,
+     25.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     92.701,
+     4.996,
+     21.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     106.701,
+     5.014,
+     11.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     92.701,
+     3.176,
+     -0.975
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     121.701,
+     5.269,
+     37.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     74.701,
+     4.956,
+     17.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-lotus-spike",
+  "name": "Lotus Spike Savunması",
+  "name_en": "Lotus Spike Retake",
+  "description": "Spike kuruldu! Lotus sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Lotus and defuse with F before it detonates.",
+  "map_id": "lotus",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   106.701,
+   5.0,
+   6.025
+  ],
+  "spawn_yaw": -2.191,
+  "site": [
+   120.701,
+   4.894,
+   16.025
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     100.701,
+     5.135,
+     28.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     100.701,
+     5.0,
+     22.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     102.701,
+     5.0,
+     18.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     108.701,
+     6.065,
+     20.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     112.701,
+     5.451,
+     12.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     120.701,
+     5.135,
+     28.025
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-pearl-preaim",
+  "name": "Pearl Ön-Nişan Rotası",
+  "name_en": "Pearl Pre-aim Route",
+  "description": "Pearl üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Pearl. Pre-aim every angle.",
+  "map_id": "pearl",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   44.957,
+   6.224,
+   50.756
+  ],
+  "spawn_yaw": -1.8925,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     50.957,
+     6.0,
+     54.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     60.957,
+     6.128,
+     50.756
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     66.957,
+     3.0,
+     46.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     78.957,
+     3.0,
+     42.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     82.957,
+     3.0,
+     44.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     84.957,
+     2.173,
+     58.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     76.957,
+     2.079,
+     68.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-pearl-hold",
+  "name": "Pearl Açı Tutma",
+  "name_en": "Pearl Angle Hold",
+  "description": "Pearl üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Pearl and shoot bots that peek the angles.",
+  "map_id": "pearl",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   15.957,
+   10.0,
+   31.756
+  ],
+  "spawn_yaw": -0.3769,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     9.957,
+     10.0,
+     10.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     13.957,
+     10.0,
+     15.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     17.957,
+     10.0,
+     5.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     38.957,
+     8.0,
+     29.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     26.957,
+     8.0,
+     37.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     13.957,
+     10.0,
+     19.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     31.957,
+     7.866,
+     33.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     11.957,
+     10.0,
+     4.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-pearl-spike",
+  "name": "Pearl Spike Savunması",
+  "name_en": "Pearl Spike Retake",
+  "description": "Spike kuruldu! Pearl sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Pearl and defuse with F before it detonates.",
+  "map_id": "pearl",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   44.957,
+   6.224,
+   50.756
+  ],
+  "spawn_yaw": 0.7854,
+  "site": [
+   30.957,
+   8.0,
+   36.756
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     50.957,
+     6.995,
+     42.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     28.957,
+     8.0,
+     24.756
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     14.957,
+     10.0,
+     22.756
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     16.957,
+     10.0,
+     28.756
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     28.957,
+     8.0,
+     30.756
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     20.957,
+     8.707,
+     34.756
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-split-preaim",
+  "name": "Split Ön-Nişan Rotası",
+  "name_en": "Split Pre-aim Route",
+  "description": "Split üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Split. Pre-aim every angle.",
+  "map_id": "split",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   -20.508,
+   2.419,
+   -12.465
+  ],
+  "spawn_yaw": -0.7854,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -16.508,
+     3.0,
+     -20.465
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -12.508,
+     3.0,
+     -28.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -4.508,
+     2.419,
+     -32.465
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     8.492,
+     4.5,
+     -34.465
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     10.492,
+     4.5,
+     -26.465
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     16.492,
+     4.5,
+     -32.465
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     22.492,
+     6.5,
+     -44.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     14.492,
+     6.8,
+     -46.465
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-8",
+    "pos": [
+     28.492,
+     6.5,
+     -54.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-split-hold",
+  "name": "Split Açı Tutma",
+  "name_en": "Split Angle Hold",
+  "description": "Split üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Split and shoot bots that peek the angles.",
+  "map_id": "split",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   -13.508,
+   4.754,
+   -125.465
+  ],
+  "spawn_yaw": -2.7299,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     9.492,
+     4.99,
+     -94.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     5.492,
+     4.99,
+     -105.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     9.492,
+     4.99,
+     -119.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -32.508,
+     3.0,
+     -102.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -28.508,
+     3.0,
+     -127.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -8.508,
+     5.543,
+     -110.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     13.492,
+     4.99,
+     -96.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     -14.508,
+     4.896,
+     -105.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-split-spike",
+  "name": "Split Spike Savunması",
+  "name_en": "Split Spike Retake",
+  "description": "Spike kuruldu! Split sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Split and defuse with F before it detonates.",
+  "map_id": "split",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   -20.508,
+   2.419,
+   -12.465
+  ],
+  "spawn_yaw": -0.6435,
+  "site": [
+   -8.508,
+   3.0,
+   -28.465
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -14.508,
+     3.0,
+     -42.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -4.508,
+     2.356,
+     -40.465
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -20.508,
+     3.013,
+     -34.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -0.508,
+     3.5,
+     -24.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -26.508,
+     2.356,
+     -26.465
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -4.508,
+     2.419,
+     -16.465
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-sunset-preaim",
+  "name": "Sunset Ön-Nişan Rotası",
+  "name_en": "Sunset Pre-aim Route",
+  "description": "Sunset üzerinde köşelere saklanmış botları temizle. Açıları önceden nişanla.",
+  "description_en": "Clear bots hidden around corners on Sunset. Pre-aim every angle.",
+  "map_id": "sunset",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 75,
+  "bots_shoot": false,
+  "spawn": [
+   -40.058,
+   -1.239,
+   28.67
+  ],
+  "spawn_yaw": -0.7854,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -36.058,
+     0.997,
+     18.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -26.058,
+     0.101,
+     28.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -20.058,
+     0.0,
+     22.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -12.058,
+     0.0,
+     28.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -16.058,
+     0.0,
+     36.67
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -10.058,
+     0.0,
+     38.67
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     2.942,
+     0.946,
+     32.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     2.942,
+     1.0,
+     44.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-8",
+    "pos": [
+     12.942,
+     0.982,
+     42.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2.0,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-sunset-hold",
+  "name": "Sunset Açı Tutma",
+  "name_en": "Sunset Angle Hold",
+  "description": "Sunset üzerinde pozisyonunu koru; açılardan peek atan botları vur.",
+  "description_en": "Hold your position on Sunset and shoot bots that peek the angles.",
+  "map_id": "sunset",
+  "type": "hold",
+  "difficulty": "medium",
+  "duration": 45,
+  "bots_shoot": false,
+  "spawn": [
+   -28.058,
+   4.0,
+   -20.33
+  ],
+  "spawn_yaw": 0.8211,
+  "site": null,
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -47.058,
+     4.003,
+     -31.33
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -29.058,
+     4.0,
+     -32.33
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -38.058,
+     4.0,
+     -47.33
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -28.058,
+     4.0,
+     -1.33
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -37.058,
+     4.0,
+     -43.33
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -45.058,
+     4.015,
+     -21.33
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-6",
+    "pos": [
+     -50.058,
+     4.0,
+     -35.33
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "bot-7",
+    "pos": [
+     -37.058,
+     4.0,
+     -31.33
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 1.6,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-sunset-spike",
+  "name": "Sunset Spike Savunması",
+  "name_en": "Sunset Spike Retake",
+  "description": "Spike kuruldu! Sunset sitesindeki botları temizle ve süre bitmeden F ile imha et.",
+  "description_en": "Spike is planted! Clear the bots on Sunset and defuse with F before it detonates.",
+  "map_id": "sunset",
+  "type": "spike",
+  "difficulty": "hard",
+  "duration": 45,
+  "bots_shoot": true,
+  "spawn": [
+   -40.058,
+   -1.239,
+   28.67
+  ],
+  "spawn_yaw": -1.3521,
+  "site": [
+   -22.058,
+   0.0,
+   24.67
+  ],
+  "bots": [
+   {
+    "id": "bot-0",
+    "pos": [
+     -10.058,
+     0.0,
+     34.67
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-1",
+    "pos": [
+     -42.058,
+     2.017,
+     12.67
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-2",
+    "pos": [
+     -16.058,
+     0.0,
+     32.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-3",
+    "pos": [
+     -28.058,
+     -0.001,
+     22.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-4",
+    "pos": [
+     -12.058,
+     0.0,
+     20.67
+    ],
+    "yaw": 0.0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   },
+   {
+    "id": "bot-5",
+    "pos": [
+     -6.058,
+     0.0,
+     24.67
+    ],
+    "yaw": 0.0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 1.5,
+    "health": 150,
+    "shoots": true
+   }
+  ],
+  "allowed_weapons": [],
+  "created_at": "2025-01-01T00:00:00+00:00",
+  "updated_at": "2025-01-01T00:00:00+00:00"
+ },
+ {
+  "id": "b-sandbox-arena",
+  "name": "Sandbox Arena",
+  "name_en": "Sandbox Arena",
+  "description": "Düzenlenebilir nesnelerden kurulmuş yeni harita: kutular, duvarlar ve platformlar. Editörde kopyalayıp kendi düzenini yap.",
+  "description_en": "New map built from editable objects. Duplicate it in the editor and build your own layout.",
+  "map_id": "sandbox",
+  "type": "preaim",
+  "difficulty": "medium",
+  "duration": 60,
+  "bots_shoot": false,
+  "spawn": [
+   0,
+   0,
+   10
+  ],
+  "spawn_yaw": 0,
+  "site": null,
+  "bots": [
+   {
+    "id": "sb0",
+    "pos": [
+     -8,
+     0,
+     -10
+    ],
+    "yaw": 0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "sb1",
+    "pos": [
+     8,
+     0,
+     -11
+    ],
+    "yaw": 0,
+    "stance": "stand",
+    "movement": "peek",
+    "move_range": 2,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "sb2",
+    "pos": [
+     0,
+     0,
+     -12
+    ],
+    "yaw": 0,
+    "stance": "crouch",
+    "movement": "static",
+    "move_range": 2,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "sb3",
+    "pos": [
+     -3,
+     1.2,
+     -6
+    ],
+    "yaw": 0,
+    "stance": "stand",
+    "movement": "static",
+    "move_range": 2,
+    "health": 150,
+    "shoots": false
+   },
+   {
+    "id": "sb4",
+    "pos": [
+     10,
+     0,
+     0
+    ],
+    "yaw": 0,
+    "stance": "stand",
+    "movement": "strafe",
+    "move_range": 2,
+    "health": 150,
+    "shoots": false
+   }
+  ],
+  "allowed_weapons": [],
+  "props": [
+   {
+    "id": "1022a09f-f2c0-45a2-8749-7e6f0f31810a",
+    "pos": [
+     0,
+     0,
+     -14
+    ],
+    "size": [
+     24,
+     4,
+     1
+    ],
+    "yaw": 0,
+    "color": "#3A4556"
+   },
+   {
+    "id": "55491268-68de-437a-914f-8ae19bda23fa",
+    "pos": [
+     -12,
+     0,
+     -4
+    ],
+    "size": [
+     1,
+     4,
+     20
+    ],
+    "yaw": 0,
+    "color": "#3A4556"
+   },
+   {
+    "id": "e2c58fb5-a938-4b57-9571-b36d5b2b7e0d",
+    "pos": [
+     12,
+     0,
+     -4
+    ],
+    "size": [
+     1,
+     4,
+     20
+    ],
+    "yaw": 0,
+    "color": "#3A4556"
+   },
+   {
+    "id": "f07f11ee-5b5b-4dda-9e09-eb863c6658f6",
+    "pos": [
+     -5,
+     0,
+     -6
+    ],
+    "size": [
+     2,
+     1.2,
+     1
+    ],
+    "yaw": 0,
+    "color": "#4B5563"
+   },
+   {
+    "id": "7574fcc8-dfe1-4b2c-998d-09b388f44c5a",
+    "pos": [
+     5,
+     0,
+     -8
+    ],
+    "size": [
+     2,
+     1.2,
+     1
+    ],
+    "yaw": 0,
+    "color": "#4B5563"
+   },
+   {
+    "id": "0b180b62-ba02-4dae-bcb6-a4150e200456",
+    "pos": [
+     0,
+     0,
+     -2
+    ],
+    "size": [
+     1,
+     2.4,
+     4
+    ],
+    "yaw": 0,
+    "color": "#2A3240"
+   },
+   {
+    "id": "1479cdc8-c8d4-4063-84ba-aea21fe3f2fd",
+    "pos": [
+     -7,
+     0,
+     4
+    ],
+    "size": [
+     3,
+     1,
+     1
+    ],
+    "yaw": 0.785,
+    "color": "#4B5563"
+   },
+   {
+    "id": "c45260a2-8829-4251-8aec-99e4eebfa272",
+    "pos": [
+     7,
+     0,
+     3
+    ],
+    "size": [
+     3,
+     1,
+     1
+    ],
+    "yaw": -0.785,
+    "color": "#4B5563"
+   },
+   {
+    "id": "37f97896-7b79-4c20-a3da-b6b36739231a",
+    "pos": [
+     0,
+     0,
+     -10
+    ],
+    "size": [
+     6,
+     0.4,
+     3
+    ],
+    "yaw": 0,
+    "color": "#FF4655"
+   }
+  ]
+ }
+]

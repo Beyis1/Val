@@ -1,0 +1,124 @@
+{
+  "iteration": 1,
+  "summary": "12 checks run (4 backend, 8 browser) covering all 8 acceptance criteria. 11 passed, 1 blocked due to a testing-tool hard timeout (120s) colliding with the documented 60-200s headless map-load time for /play/b-ascent-hold; supporting code-level evidence confirms the boundary clamp logic is implemented correctly.",
+  "passed": 11,
+  "failed": 0,
+  "blocked": 1,
+  "flaky": 0,
+  "test_error": 0,
+  "retest_needed": true,
+  "checks": [
+    {
+      "criterion": "Workshop library lists built-in scenarios grouped by map with images",
+      "name": "workshop-library-groups",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Range group shows mode images (gridshot/flick/tracking/strafe.jpg), map-group-ascent shows /maps/ascent/thumb.jpg, filter-map-range filters list, filter-favorites and filter-unplayed visible, search-input filters. Screenshot confirms visually."
+    },
+    {
+      "criterion": "Workshop library lists built-in scenarios grouped by map with images (data layer)",
+      "name": "test_tscheck_scenario_library.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET /api/scenarios returns 39 builtin scenarios incl. b-range-gridshot/flick/tracking/strafe and ascent map; POST /api/scenarios/{id}/favorite with {favorite:true} returns 200 and favorite:true, verified persisted via GET. Fixture scenario deleted after test."
+    },
+    {
+      "criterion": "Scenario flow: intro -> loading -> click to start -> HUD -> results",
+      "name": "scenario-play-flow-results",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "/play/b-range-gridshot: intro-play-btn -> start-btn after loading -> clicked start -> hud-score/hud-timer/hud-ammo/hud-minimap/hud-fps all visible -> window.__engine.finish(true) -> results-panel with result-score visible. Console shows expected 'user gesture required for Pointer Lock' (documented as expected in headless, not a bug)."
+    },
+    {
+      "criterion": "Scenario flow records persistence (record is POSTed and appears on /records)",
+      "name": "records-page-shows-table",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "curl http://localhost:8001/api/records shows the record created by the play-flow check (scenario_id b-range-gridshot, id d4021819-...) persisted; /records page shows records-table with matching row count (4)."
+    },
+    {
+      "criterion": "Scenario flow records persistence (API)",
+      "name": "test_tscheck_record_flow.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "POST /api/records with scenario_id=b-range-gridshot, score=12345 returns 200 with created id; GET /api/records list contains that id."
+    },
+    {
+      "criterion": "Enemies take damage (hitboxes on agent models)",
+      "name": "target-damage-on-hit",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "On /play/b-range-strafe after start, aimed __engine.yaw/pitch at live target head using target.root.position + hit[0].position, called tryFire(true) with nextFire=0: fireOutcome={\"hpBefore\":150,\"hpAfter\":-10,\"died\":true,\"killsBefore\":0,\"killsAfter\":1}. HP dropped, target died, kills incremented."
+    },
+    {
+      "criterion": "Deterministic first shot and spray pattern",
+      "name": "deterministic-first-shot-crosshair",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Standing still (vel=0, onGround=true), 3 consecutive tryFire(true) calls with nextFire reset each time: first shot aim stayed exactly at crosshair (yaw=0,pitch=0); repeating the identical sequence from a fresh reset produced an identical yaw/pitch sequence both runs, confirming no Math.random dependency when standing still."
+    },
+    {
+      "criterion": "Buy menu: weapons + shields only; skin window separate",
+      "name": "buy-menu-weapons-shields",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "open-buy-btn opens buy-menu showing weapon columns (buy-weapon-vandal etc.) and buy-shield-heavy; clicking buy-weapon-vandal shows buy-detail-panel with fire rate/mag/run speed/reload/damage-by-distance table (screenshot confirms)."
+    },
+    {
+      "criterion": "Buy menu: skin window separate",
+      "name": "skin-window-vandal-skins",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "rail-skins (sidebar, clicked while buy-menu closed) opens skin-window separate from buy menu; switching to skin-weapon-vandal shows exactly 10 skin-option-* cards; vm-*-slider, glb-upload-input and fp-agent-select all present/attached."
+    },
+    {
+      "criterion": "Settings autosave, crosshair code, keybinds",
+      "name": "settings-crosshair-code-sensitivity",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "settings-search filters rows (typed 'hassasiyet', only sensitivity rows shown); changing sensitivity input to 0.567 updated sens-quick-btn top-bar value to 0.567; ch-code-input filled with '0;P;c;5;h;0;0l;4;0o;2;0a;1;0f;0;1b;0' + ch-code-import turned the live crosshair preview cyan (screenshot confirms)."
+    },
+    {
+      "criterion": "Settings keybinds",
+      "name": "settings-keybind-capture",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Control tab keybind-table visible; clicked bind-<action>-0 button (showed 'W'), entered capture mode ('Press key...'), pressed KeyG, button text changed to 'G'."
+    },
+    {
+      "criterion": "Settings autosave persistence (API)",
+      "name": "test_tscheck_settings_persist.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "PUT /api/settings with a tscheck marker + sensitivity=0.42 returns 200; subsequent GET /api/settings returns the same marker and sensitivity=0.42."
+    },
+    {
+      "criterion": "Minimap and mode boundaries",
+      "name": "minimap-boundary-clamp",
+      "lane": "browser",
+      "status": "blocked",
+      "evidence": "Two attempts both hit the browser-check tool's ~120s hard execution ceiling while waiting for /play/b-ascent-hold's map GLB to load (briefing documents 60-200s headless load time for map scenarios) — the tool itself times out before the app can even reach start-btn. Could not be exercised live within this tool's budget. Supporting code evidence (frontend/src/game/engine.ts lines 289, 625): hold-type scenarios set `this.limit = {x, z, r: 2.5}`, and the per-frame tick clamps `pos` back inside the radius and sets `boundT` (which drives the 'bounds' HUD message) whenever `d > L.r` — matching the criterion's expected behavior. hud-minimap itself was independently confirmed rendering in the range-scenario HUD check."
+    },
+    {
+      "criterion": "Workshop editor create/save/try",
+      "name": "editor-create-save-delete",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "/editor: filled editor-name-input with unique name, editor-map-select=range, editor-type-input=gridshot, clicked editor-save-btn -> URL became /editor/<id>; new scenario appeared in Workshop search by name; clicked editor-delete-btn -> confirmed via curl GET /api/scenarios/<id> returning 404 (fully removed, no residue)."
+    },
+    {
+      "criterion": "Ingress/public URL sanity",
+      "name": "preview-url-workshop-smoke",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Loaded https://memorable-6.preview.emergentagent.com/ directly and confirmed map-group-range renders, proving the public ingress path works end-to-end."
+    }
+  ],
+  "bugs": [],
+  "action_items": [
+    {
+      "item": "minimap-boundary-clamp check is environment-blocked: the run_browser_script tool enforces a hard ~120s execution ceiling, but headless map scenario loads (e.g. /play/b-ascent-hold) are documented to take 60-200s. Re-run this check manually with a longer-budget tool/session, or consider adding a lighter-weight map fixture for automated testing of map-scenario boundary logic.",
+      "severity": "medium"
+    }
+  ]
+}

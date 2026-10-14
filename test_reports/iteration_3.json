@@ -1,0 +1,81 @@
+{
+  "iteration": 3,
+  "mode": "retest",
+  "passed": 9,
+  "failed": 0,
+  "flaky": 0,
+  "bugs": [],
+  "action_items": [
+    {
+      "type": "test_artifact_fix",
+      "severity": "low",
+      "description": "weapon-damage-per-type-hitboxes browser check had a stale hardcoded body hitbox position check (x===0 && y===1.2) that no longer matched the current template geometry (body hit mesh now at y=1.2604). Not an app bug: test was updated to select the hitbox purely by userData.zone === 'body' as instructed in the briefing. Re-run now passes consistently."
+    }
+  ],
+  "retest_needed": false,
+  "checks": [
+    {
+      "criterion": "Backend: sandbox scenario props API persistence",
+      "name": "test_tscheck_sandbox_scenario_props.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "pytest: 6 passed in 0.72s (test_tscheck_record_flow.py, test_tscheck_sandbox_scenario_props.py, test_tscheck_scenario_library.py, test_tscheck_settings_persist.py all green)"
+    },
+    {
+      "criterion": "Bots use training-bot robot model, one figure per bot, hitboxes fitted",
+      "name": "sandbox-map-and-editor-props",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Re-run (reran-persisted): PASSED, START_CALLED, no console errors beyond benign WebGL perf notices"
+    },
+    {
+      "criterion": "Per-weapon damage + hitbox zones (head/body/leg, Vandal vs Classic)",
+      "name": "weapon-damage-per-type-hitboxes",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "First re-run FAILED with 'Cannot read properties of undefined (reading position)' because the persisted check's body-hitbox lookup required position.y===1.2 exactly, but current body hit mesh sits at y=1.2604 (confirmed via ad-hoc debug evaluate: hit=[{zone:head,pos:[0,1.725,0]},{zone:body,pos:[0,1.2604,0]},{zone:leg,pos:[0,0.4598,0]}]). Updated the check to select by userData.zone==='body' only (per briefing guidance). Re-run result: {vandalBodyDamage:40, classicBodyDamage:26, diedHead:true, killsAfter:1, headsAfter:1} — matches expected Vandal body=40, Classic body=26, headshot kill."
+    },
+    {
+      "criterion": "Editor prop placement (Sandbox scenario, KeyB adds prop, inspector edits, save persists)",
+      "name": "editor-create-save-delete",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED: created scenario, saved to http://localhost:3000/editor/c30b2ee5-42f0-4738-b932-b1d99d93df1f, workshop shows new scenario, delete succeeds. No __engine/StrictMode disposal race observed."
+    },
+    {
+      "criterion": "Regression: FP arms visible for agents",
+      "name": "fp-arms-weapon-visible",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED for viper/jett/phoenix/sage: rigNotNull=true, vmRootVisible=true, vmLoaded includes vandal/prime-vandal skins"
+    },
+    {
+      "criterion": "Regression: Esc pause menu panels",
+      "name": "esc-pause-menu-panels",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED, 7 screenshots covering settings/controls/training/buy-menu/skin-window panes and return-home flow"
+    },
+    {
+      "criterion": "Regression: Skin collection curated Vandal skins",
+      "name": "skin-collection-curated-vandal",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED: [\"skin-option-default\",\"skin-option-blackmarket-vandal\",\"skin-option-dotexe-vandal\",\"skin-option-prime-vandal\"]"
+    },
+    {
+      "criterion": "Regression: Settings defaults / video options",
+      "name": "settings-defaults-video-options",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED: RES_OPTIONS [\"Yerel (1280x720)\",\"1280x720\"]"
+    },
+    {
+      "criterion": "Public ingress smoke via preview URL",
+      "name": "preview-url-workshop-smoke",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED against https://memorable-6.preview.emergentagent.com"
+    }
+  ]
+}
