@@ -48,7 +48,7 @@ export class FPRig {
   rest = new THREE.Matrix4(); extra = new THREE.Matrix4();
   private lTarget: THREE.Object3D | null = null; private lChain: THREE.Object3D[] = []; private lHand: THREE.Object3D | null = null;
   /** 0..1 — engine lowers it while reload / inspect take the left hand off the gun */
-  ikTarget = 1; private busy: THREE.AnimationAction | null = null; private hideLeft = false; private ikW = 1;
+  ikTarget = 1; lOffset = new THREE.Vector3(); ikEnabled = true; private busy: THREE.AnimationAction | null = null; private hideLeft = false; private ikW = 1;
 
   static async build(agent: string, weaponId: string, category: string, skin: string, customUrl: string | null): Promise<FPRig> {
     const r = new FPRig(); r.holder.matrixAutoUpdate = false;
@@ -155,8 +155,8 @@ export class FPRig {
     this.holder.updateMatrixWorld(true);
     // left-hand IK fades out while reload / equip / inspect clips own the left arm
     this.ikW += ((this.isBusy() ? 0 : this.ikTarget) - this.ikW) * Math.min(1, dt * 14);
-    if (this.lTarget && this.lHand && this.lChain.length && this.ikW > 0.01) {
-      const tgt = this.lTarget.getWorldPosition(v1);
+    if (this.ikEnabled && this.lTarget && this.lHand && this.lChain.length && this.ikW > 0.01) {
+      const tgt = this.lTarget.getWorldPosition(v1).add(this.lOffset);
       for (let it = 0; it < 4; it++) {
         for (const link of this.lChain) {
           const eff = this.lHand.getWorldPosition(v2); const lp = link.getWorldPosition(v3);

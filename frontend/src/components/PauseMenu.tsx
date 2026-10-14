@@ -1,10 +1,13 @@
 import { useState, type ReactNode } from "react";
-import { Play, Settings2, Keyboard, Crosshair, Home, LogOut, RotateCcw, Swords, Palette } from "lucide-react";
-import { ACTIONS, keyLabel, updateSettings, useSettings, type ActionId, type AppSettings } from "@/lib/settings";
+import { Play, Settings2, Keyboard, Crosshair, Home, LogOut, RotateCcw, Swords, Palette, Hand, ArrowLeft } from "lucide-react";
+import { ACTIONS, DEFAULT_VM, keyLabel, updateSettings, useSettings, type ActionId, type AppSettings, type ViewmodelAdjust } from "@/lib/settings";
+import { WEAPON_BY_ID } from "@/game/weapons";
+import { useQuery } from "@tanstack/react-query";
+import { getManifest } from "@/game/assets";
 import { useL, TYPE_LABEL, DIFF_LABEL, MAP_NAMES } from "@/lib/i18n";
 import type { Scenario } from "@/lib/types";
 
-type Pane = "settings" | "controls" | "training";
+type Pane = "settings" | "controls" | "training" | "viewmodel";
 const ACTION_TR: Record<ActionId, [string, string]> = {
   forward: ["İleri", "Forward"], back: ["Geri", "Back"], left: ["Sol", "Left"], right: ["Sağ", "Right"], jump: ["Zıpla", "Jump"], crouch: ["Eğil", "Crouch"],
   walk: ["Yürü", "Walk"], use: ["Kullan / İmha", "Use / Defuse"], reload: ["Şarjör", "Reload"], primary: ["Ana silah", "Primary"], secondary: ["Tabanca", "Sidearm"],
@@ -27,11 +30,14 @@ function Switch({ v, set, tid }: { v: boolean; set: (b: boolean) => void; tid: s
 }
 
 /** Esc menu: resume · settings · controls · training · main menu · quit. Every entry is wired to real state. */
-export function PauseMenu({ scenario, fps, onResume, onRestart, onWeapons, onSkins, onMenu, onQuit }: {
+export function PauseMenu({ scenario, fps, onResume, onRestart, onWeapons, onSkins, onMenu, onQuit, weaponId, onSlot }: {
   scenario: Scenario; fps: number; onResume: () => void; onRestart: () => void; onWeapons: () => void; onSkins: () => void; onMenu: () => void; onQuit: () => void;
+  weaponId: string; onSlot: (slot: number) => Promise<string>;
 }) {
   const L = useL(); const st = useSettings(); const [pane, setPane] = useState<Pane>("settings");
   const up = (f: (d: AppSettings) => void) => updateSettings(f);
+  const [wid, setWid] = useState(weaponId);
+  if (pane === "viewmodel") return <ViewmodelEditor wid={wid} onBack={() => setPane("settings")} onSlot={async (n) => setWid(await onSlot(n))} />;
   const item = (id: string, icon: ReactNode, label: string, on: () => void, active = false, danger = false) => (
     <button key={id} data-testid={`pause-${id}-btn`} onClick={on}
       className={`group flex w-full items-center gap-3 px-4 py-3 text-left font-heading text-sm font-bold uppercase tracking-[0.14em] transition-[background-color,color,transform] duration-150 hover:translate-x-1 ${active ? "bg-white/10 text-white" : danger ? "text-dim hover:bg-val/15 hover:text-val" : "text-dim hover:bg-white/5 hover:text-white"}`}>
@@ -50,6 +56,7 @@ export function PauseMenu({ scenario, fps, onResume, onRestart, onWeapons, onSki
           {item("settings", <Settings2 size={16} />, L("Ayarlar", "Settings"), () => setPane("settings"), pane === "settings")}
           {item("controls", <Keyboard size={16} />, L("Kontroller", "Controls"), () => setPane("controls"), pane === "controls")}
           {item("training", <Crosshair size={16} />, L("Antrenman ayarları", "Training"), () => setPane("training"), pane === "training")}
+          {item("viewmodel", <Hand size={16} />, L("Kol / silah ayarı", "Arms / weapon tweak"), () => setPane("viewmodel"))}
           <div className="mx-6 my-3 h-px bg-white/10" />
           {item("menu", <Home size={16} />, L("Ana menüye dön", "Main menu"), onMenu)}
           {item("quit", <LogOut size={16} />, L("Oyundan çık", "Quit game"), onQuit, false, true)}
@@ -110,6 +117,58 @@ export function PauseMenu({ scenario, fps, onResume, onRestart, onWeapons, onSki
           </>
         )}
       </section>
+    </div>
+  );
+}
+
+/** Live first-person tweak panel: the game stays visible (no blur), every slider applies instantly and is saved per weapon. */
+function ViewmodelEditor({ wid, onBack, onSlot }: { wid: string; onBack: () => void; onSlot: (slot: number) => Promise<void> }) {
+  const L = useL(); const st = useSettings();
+  const man = useQuery({ queryKey: ["ka-manifest"], queryFn: getManifest, staleTime: Infinity });
+  const a: ViewmodelAdjust = { ...DEFAULT_VM, ...(st.viewmodel[wid] ?? {}) };
+  const set = (k: keyof ViewmodelAdjust, v: number) => updateSettings((d) => { d.viewmodel[wid] = { ...DEFAULT_VM, ...(d.viewmodel[wid] ?? {}), [k]: v }; });
+  const row = (k: keyof ViewmodelAdjust, label: string, min: number, max: number, step: number, fmt: (n: number) => string) => (
+    <div className="grid grid-cols-[110px_1fr_52px] items-center gap-2 py-1 text-xs" key={k}>
+      <span className="text-dim">{label}</span>
+      <input data-testid={`vm-${k}`} type="range" min={min} max={max} step={step} value={a[k]} onChange={(e) => set(k, Number(e.target.value))} className="accent-[#FF4655]" />
+      <span className="num text-right text-sky">{fmt(a[k])}</span>
+    </div>
+  );
+  const cm = (n: number) => `${Math.round(n * 100)}`; const deg = (n: number) => `${Math.round(n)}°`;
+  return (
+    <div className="absolute inset-0 z-30" data-testid="viewmodel-editor">
+      <div className="absolute left-1/2 top-4 -translate-x-1/2 border border-white/10 bg-[#0B1015]/85 px-4 py-2 text-xs text-dim">{L("Canlı önizleme — değişiklikler bu silah için otomatik kaydedilir", "Live preview — saved automatically for this weapon")}</div>
+      <aside className="absolute right-4 top-4 w-[380px] border border-white/10 bg-[#0B1015]/92 p-5 shadow-2xl anim-fade-up">
+        <div className="flex items-center justify-between">
+          <button data-testid="vm-back-btn" onClick={onBack} className="flex items-center gap-1.5 text-xs font-bold uppercase text-dim transition-colors duration-150 hover:text-white"><ArrowLeft size={14} />{L("Menü", "Menu")}</button>
+          <div className="flex gap-1">{[1, 2, 3].map((n) => <button key={n} data-testid={`vm-slot-${n}`} onClick={() => void onSlot(n)} className="num border border-white/15 px-2.5 py-1 text-xs transition-colors duration-150 hover:bg-white/10">{n}</button>)}</div>
+        </div>
+        <h3 className="mt-3 font-heading text-2xl font-black uppercase" data-testid="vm-weapon-name">{WEAPON_BY_ID[wid]?.name ?? wid}</h3>
+        <div className="mt-1 flex items-center gap-2 text-xs text-dim">{L("Kol ajanı", "Arms agent")}
+          <select data-testid="vm-agent-select" value={st.fpAgent} onChange={(e) => updateSettings((d) => { d.fpAgent = e.target.value; })} className="border border-white/15 bg-white/5 px-2 py-1 text-white">
+            {(man.data?.fp ?? [st.fpAgent]).map((ag) => <option key={ag} value={ag}>{ag}</option>)}
+          </select>
+        </div>
+        <div className="overline mt-4">{L("Silah + kollar (cm / derece)", "Weapon + arms (cm / deg)")}</div>
+        {row("px", L("Sağ / sol", "Right / left"), -0.2, 0.2, 0.002, cm)}
+        {row("py", L("Yukarı / aşağı", "Up / down"), -0.2, 0.2, 0.002, cm)}
+        {row("pz", L("Yakın / uzak", "Near / far"), -0.25, 0.25, 0.002, cm)}
+        {row("rx", L("Eğim", "Pitch"), -30, 30, 0.5, deg)}
+        {row("ry", L("Yön", "Yaw"), -30, 30, 0.5, deg)}
+        {row("rz", L("Yatış", "Roll"), -30, 30, 0.5, deg)}
+        {row("scale", L("Boyut", "Scale"), 0.6, 1.4, 0.01, (n) => `x${n.toFixed(2)}`)}
+        {row("fov", L("Silah FOV", "Viewmodel FOV"), 40, 80, 1, deg)}
+        <div className="overline mt-4 flex items-center justify-between">{L("Sol el", "Left hand")}
+          <label className="flex items-center gap-2 normal-case tracking-normal text-dim"><input data-testid="vm-ik" type="checkbox" checked={a.ik !== 0} onChange={(e) => set("ik", e.target.checked ? 1 : 0)} className="accent-[#FF4655]" />{L("Silaha yapıştır", "Snap to weapon")}</label>
+        </div>
+        {row("lx", L("Sağ / sol", "Right / left"), -0.2, 0.2, 0.002, cm)}
+        {row("ly", L("Yukarı / aşağı", "Up / down"), -0.2, 0.2, 0.002, cm)}
+        {row("lz", L("İleri / geri", "Forward / back"), -0.25, 0.25, 0.002, cm)}
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <button data-testid="vm-reset-btn" onClick={() => updateSettings((d) => { delete d.viewmodel[wid]; })} className="border border-white/15 py-2 text-xs font-bold uppercase transition-colors duration-150 hover:bg-white/10">{L("Sıfırla", "Reset")}</button>
+          <button data-testid="vm-apply-all-btn" onClick={() => updateSettings((d) => { for (const id of Object.keys(WEAPON_BY_ID)) if (WEAPON_BY_ID[id].category === WEAPON_BY_ID[wid]?.category) d.viewmodel[id] = { ...a }; })} className="border border-white/15 py-2 text-xs font-bold uppercase transition-colors duration-150 hover:bg-white/10">{L("Aynı türe uygula", "Apply to category")}</button>
+        </div>
+      </aside>
     </div>
   );
 }

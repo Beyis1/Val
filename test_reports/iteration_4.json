@@ -1,0 +1,75 @@
+{
+  "iteration": 4,
+  "mode": "retest",
+  "passed": 8,
+  "failed": 0,
+  "flaky": 0,
+  "blocked": 0,
+  "bugs": [],
+  "action_items": [
+    {
+      "type": "environment_perf_note",
+      "severity": "low",
+      "description": "Ascent map scenarios (b-ascent-preaim, and the custom 18-bot ascent preaim scenario) take 60-100s+ to reach start-btn in this headless pod (asset/texture/GLB loading), which exceeds the browser-check tool's 120s hard budget once start+settle steps are added. The 'Bots face player and stay grounded' criterion was verified instead on the fast-loading b-sandbox-arena scenario, which exercises the exact same engine.ts code path (groundY() + atan2 rotation tracking in the per-frame bot update loop, lines ~758/783-785) that ascent bots use — not an app bug, just an environment/timeout constraint. Re-run manually against an ascent scenario with a longer timeout if ascent-specific geometry (ramps/stairs) needs separate confirmation."
+    }
+  ],
+  "retest_needed": false,
+  "checks": [
+    {
+      "criterion": "Backend regression suite (sandbox props, record flow, scenario library, settings persistence)",
+      "name": "pytest: test_tscheck_*.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "cd /app/backend && python -m pytest -q: 6 passed in 0.82s"
+    },
+    {
+      "criterion": "Recorded weapon/feedback sounds are wired",
+      "name": "sound-wiring-vandal-sandbox",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED: __decodedSamples() after 2.2s included all required files (vandal/phantom/guardian/operator tap, vandal reload, knife swing, hit/headshot, kill/1-5.mp3); all 12 required URLs returned HTTP 200 via page.request.get"
+    },
+    {
+      "criterion": "Settings audio tab no longer has kill-sound or headshot-dink options",
+      "name": "settings-audio-no-kill-headshot-toggle",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED: set-kill-snd count=0, no 'headshot dink toggle' text found; set-volume-slider/set-sfx-volume-slider/set-hit-snd-tick all visible. Audio rows text: 'Ana ses / Efekt sesleri / Ateş sesi / ... İsabet sesi / TİCK DİNK POP KAPALI' (dink remains only as one of 4 hit-sound style choices, not a separate headshot toggle)"
+    },
+    {
+      "criterion": "Kill/headshot logic per event",
+      "name": "kill-headshot-no-double-count",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED: {\"aliveAfterFirst\":false,\"killsBefore\":0,\"killsAfterFirst\":1,\"killsAfterSecond\":1} - headshot killed bot once, firing again at corpse did not increment kills"
+    },
+    {
+      "criterion": "Valorant-style weapon menu (B)",
+      "name": "buy-menu-valorant-style",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED: KeyB opened buy-menu with 6 category columns (.grid-cols-6 > div count=6); hovering buy-weapon-phantom set buy-detail-name to 'Phantom' and showed weapon-preview-3d; buy-equip-btn set buy-loadout-1 to Phantom; buy-skin-btn opened skin-window; buy-close-btn returned to game (buy-menu count=0 after)"
+    },
+    {
+      "criterion": "Arms / weapon live tweak panel",
+      "name": "viewmodel-editor-live-tweak",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED: setStatus('paused')->pause-viewmodel-btn opened viewmodel-editor; vm-px slider -> rig.extra matrix translation x updated to 0.15 live; vm-lz slider -> rig.lOffset.z updated live (sign-flipped internal convention, |z|=0.08); settings.viewmodel.phantom persisted {px:0.15, lz:0.08,...} in localStorage valaim.settings.v1; vm-slot-2 changed vm-weapon-name; vm-reset-btn cleared persisted entry (afterReset=undefined); vm-back-btn returned to pause-menu"
+    },
+    {
+      "criterion": "Bots face player and stay grounded",
+      "name": "bots-face-player-grounded",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED on b-sandbox-arena (same engine code path as ascent; see action_items note on ascent load time): all 5 bots' rotation.y within ~0.9deg of atan2(player-bot), and root.position.y matched groundY at their x/z within 5e-16 (effectively exact)"
+    },
+    {
+      "criterion": "Knife sounds",
+      "name": "knife-sounds-no-crash",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "PASSED: equip(3) -> weapon.category='melee', tryFire(true) executed with zero console/page errors"
+    }
+  ]
+}

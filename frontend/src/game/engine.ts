@@ -3,7 +3,7 @@ import { MeshBVH, acceleratedRaycast } from "three-mesh-bvh";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 import { loadGLTF, getManifest, weaponModelUrl, meshBounds } from "@/game/assets";
-import { sfx } from "@/game/audio";
+import { sfx, preloadWeapon, decodedSamples, preloadFeedback, resetKillStreak } from "@/game/audio";
 import { FPRig, fixMaterials } from "@/game/viewmodel";
 import { WEAPON_BY_ID, KNIFE, SHIELD_BY_ID, damageAt, type WeaponDef } from "@/game/weapons";
 import { getSettings, subscribeSettings, updateSettings, DEFAULT_VM, type ActionId } from "@/lib/settings";
@@ -124,7 +124,7 @@ export class Engine {
     this.resetRound();
     await this.equip(this.loadout.primary ? 1 : 2, true);
     // debug hooks for automated checks (same module instance as the app)
-    if (!this.disposed) Object.assign(window, { __engine: this, __updateSettings: updateSettings });
+    if (!this.disposed) Object.assign(window, { __engine: this, __updateSettings: updateSettings, __decodedSamples: decodedSamples });
     this.setStatus("ready");
     this.last = performance.now();
     this.loop();
@@ -284,7 +284,8 @@ export class Engine {
     // browsers refuse a re-lock right after Esc; never leave the game "running" without mouse capture
     setTimeout(() => { if (this.status === "running" && !this.editor && document.pointerLockElement !== this.canvas && !localStorage.getItem("valaim.noLockCheck")) { this.keys.clear(); this.firing = false; this.setStatus("paused"); } }, 450);
   }
-  start() { if (this.status === "ended") this.resetRound(); this.setStatus("running"); this.requestLock(); this.last = performance.now(); }
+  start() {
+    preloadFeedback(); for (const id of ["vandal", "phantom", "guardian", "operator", "knife", this.weapon.id]) preloadWeapon(id); if (this.status === "ended") this.resetRound(); this.setStatus("running"); this.requestLock(); this.last = performance.now(); }
   resume() { this.setStatus("running"); this.requestLock(); this.last = performance.now(); }
   restart() { this.resetRound(); this.start(); }
   resize() {
@@ -315,6 +316,7 @@ export class Engine {
 
   resetRound() {
     for (const tg of this.targets) this.scene.remove(tg.root);
+    resetKillStreak();
     this.targets = []; this.t = 0; this.score = 0; this.kills = 0; this.shots = 0; this.hits = 0; this.heads = 0; this.reactions = [];
     this.onTarget = 0; this.defuse = 0; this.defused = false; this.ended = false; this.died = false; this.message = ""; this.lastEnemyAnn = false;
     const sh = SHIELD_BY_ID[getSettings().loadout.shield] ?? SHIELD_BY_ID.none;
@@ -322,7 +324,7 @@ export class Engine {
     this.pos.fromArray(this.sc.spawn.length === 3 ? this.sc.spawn : [0, 0, 8]); this.vel.set(0, 0, 0);
     this.yaw = this.sc.spawn_yaw; this.pitch = 0; this.zoomIdx = -1;
     if (AIM_TYPES.includes(this.sc.type)) this.pos.set(0, 0, 8), (this.yaw = 0);
-    this.pos.y = this.groundY(this.pos.x, this.pos.y, this.pos.z); this.onGround = true;
+    this.nudgeOut(this.pos); this.pos.y = this.groundY(this.pos.x, this.pos.y, this.pos.z); this.onGround = true;
     for (const k of Object.keys(this.ammo)) delete this.ammo[k];
     if (this.spikeObj) { this.scene.remove(this.spikeObj); this.spikeObj = null; }
     this.spikePos = null;
@@ -361,7 +363,7 @@ export class Engine {
     this.weapon = (id && WEAPON_BY_ID[id]) || KNIFE;
     if (this.ammo[this.weapon.id] === undefined) this.ammo[this.weapon.id] = this.weapon.mag;
     this.nextFire = this.t + this.weapon.equip; this.updateFov();
-    this.equipT = this.t; this.inspectT = -9; this.clearReloadTimers(); sfx.equip(this.weapon.category);
+    this.equipT = this.t; this.inspectT = -9; this.clearReloadTimers(); sfx.stopReload(); preloadWeapon(this.weapon.id); sfx.equip(this.weapon.category, this.weapon.id);
     await this.buildViewmodel();
     this.equipT = this.t; // restart the raise once the model is actually on screen
   }
@@ -400,6 +402,8 @@ export class Engine {
     if (!this.vmModel) return;
     const a = { ...DEFAULT_VM, ...(getSettings().viewmodel[this.weapon.id] ?? {}) };
     if (this.rig) {
+      this.rig.lOffset.set(a.lx, a.ly, -a.lz); this.rig.ikEnabled = a.ik !== 0;
+      if (this.vmCam.fov !== a.fov) { this.vmCam.fov = a.fov; this.vmCam.updateProjectionMatrix(); }
       this.rig.extra.compose(new THREE.Vector3(a.px, a.py, a.pz), new THREE.Quaternion().setFromEuler(new THREE.Euler((a.rx * Math.PI) / 180, (a.ry * Math.PI) / 180, (a.rz * Math.PI) / 180)), new THREE.Vector3(a.scale, a.scale, a.scale));
       this.vmRoot.visible = getSettings().showViewmodel; return;
     }
@@ -414,6 +418,7 @@ export class Engine {
     this.reloadEnd = this.t + w.reload; this.zoomIdx = -1; this.inspectT = -9; this.updateFov(); this.rig?.play("Reload", w.reload);
     // sound cues land on the procedural reload curve: mag out (~22%), mag in (~68%), charge / slide (~88%)
     this.clearReloadTimers();
+    if (sfx.reloadSample(w.id)) return;
     const id = w.id; const cue = (f: number, kind: "out" | "in" | "charge") => this.reloadTimers.push(window.setTimeout(() => { if (this.weapon.id === id && this.reloadEnd > this.t) sfx.reload(kind, w.category); }, w.reload * f * 1000));
     cue(0.22, "out"); cue(0.68, "in"); if (w.category !== "shotgun") cue(0.88, "charge");
   }
@@ -428,7 +433,7 @@ export class Engine {
     if (w.mag > 0) this.ammo[w.id] -= 1;
     if (this.t - this.lastShotT > 0.42) this.recoil = 0; else if (this.t - this.lastShotT > 0.2) this.recoil = Math.max(0, this.recoil - 2);
     this.lastShotT = this.t; this.vmKick = w.category === "melee" ? 0 : 1; this.inspectT = -9; this.rig?.play("Fire");
-    if (w.category === "melee") { sfx.knife(); this.slashT = this.t; this.shoot(w, 0, 2.4); return; }
+    if (w.category === "melee") { this.slashT = this.t; sfx.knife(this.shoot(w, 0, 2.4)); return; }
     sfx.fire(w.id, getSettings().skins[w.id] ?? "default"); this.shots += 1;
     (this.flash.material as THREE.MeshBasicMaterial).opacity = 1; this.flash.rotation.z = Math.random() * Math.PI; this.flash.scale.setScalar(0.7 + Math.random() * 0.6);
     const speed = Math.hypot(this.vel.x, this.vel.z);
@@ -541,7 +546,7 @@ export class Engine {
     if (!tpl) { const visor = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.05, 0.02), new THREE.MeshBasicMaterial({ color: 0x0b1015 })); visor.position.set(0, 1.71, 0.13); body.add(visor); }
     root.userData.flash = flash;
     if (spec.stance === "crouch") body.scale.y = 0.72;
-    const base = new THREE.Vector3().fromArray(spec.pos); base.y = this.groundY(base.x, base.y, base.z);
+    const base = this.nudgeOut(new THREE.Vector3().fromArray(spec.pos)); base.y = this.groundY(base.x, base.y, base.z);
     root.position.copy(base);
     const toP = new THREE.Vector3().subVectors(this.pos, base); toP.y = 0;
     root.rotation.y = Math.atan2(toP.x, toP.z);
@@ -549,6 +554,24 @@ export class Engine {
     this.scene.add(root);
     return { kind: "bot", root, hit, hp: spec.health, maxHp: spec.health, alive: true, active: true, spec, base, lateral, phase: Math.random() * 6, dir: 1,
       nextTurn: 0, speed: getSettings().range.botSpeed, seenAt: null, spawnAt: this.t, firstHit: null, los: false, losCheck: 0, acquired: null, lastShot: 0, deathT: 0, hideAt: 0 };
+  }
+  /** Push a spawn point out of nearby walls (8 horizontal probes at knee + chest height) so bots never start inside geometry. */
+  nudgeOut(p: THREE.Vector3): THREE.Vector3 {
+    if (!this.collider) return p;
+    const R = 0.4; this.ray.firstHitOnly = true;
+    for (let pass = 0; pass < 2; pass++) for (const h of [0.5, 1.2]) for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2; const dir = new THREE.Vector3(Math.sin(a), 0, Math.cos(a));
+      this.ray.set(new THREE.Vector3(p.x, p.y + h, p.z), dir); this.ray.far = R;
+      const hit = this.ray.intersectObject(this.collider, false)[0];
+      if (hit) p.addScaledVector(dir, -(R - hit.distance) - 0.02);
+    }
+    this.ray.firstHitOnly = false; return p;
+  }
+  /** Is the strafe path clear for a step (chest-height probe), so moving bots never walk into walls. */
+  pathClear(from: THREE.Vector3, dir: THREE.Vector3, dist: number): boolean {
+    if (!this.collider) return true;
+    this.ray.set(new THREE.Vector3(from.x, from.y + 0.9, from.z), dir); this.ray.far = dist + 0.35; this.ray.firstHitOnly = true;
+    const h = this.ray.intersectObject(this.collider, false)[0]; this.ray.firstHitOnly = false; return !h;
   }
   /** Floor height under a point (feet snap) — same collider the player capsule walks on. */
   groundY(x: number, y: number, z: number): number {
@@ -706,7 +729,7 @@ export class Engine {
       if (tg.hitFlash && tg.hitFlash > 0) { tg.hitFlash -= dt * 6; const k = Math.max(0, tg.hitFlash) * 0.5; for (const mt of tg.root.userData.flash as THREE.MeshStandardMaterial[]) mt.emissive.setRGB(k, k, k); }
       if (!tg.alive && tg.kind === "bot" && this.respawns() && this.t - tg.deathT > 1.6) {
         tg.alive = true; tg.active = true; tg.root.visible = true; tg.hp = tg.maxHp; tg.root.children[0].rotation.x = 0;
-        tg.root.position.copy(tg.base); tg.spawnAt = this.t; tg.seenAt = null; tg.firstHit = null; tg.acquired = null;
+        tg.root.position.copy(tg.base); tg.root.rotation.y = Math.atan2(this.pos.x - tg.base.x, this.pos.z - tg.base.z); tg.spawnAt = this.t; tg.seenAt = null; tg.firstHit = null; tg.acquired = null;
         continue;
       }
       if (!tg.alive) {
@@ -728,7 +751,12 @@ export class Engine {
         if (this.t > tg.nextTurn) { tg.dir = Math.random() < 0.5 ? -1 : 1; tg.nextTurn = this.t + 0.25 + Math.random() * 0.65; }
         const off = tg.root.position.clone().sub(tg.base).dot(tg.lateral);
         if (Math.abs(off) > sp.move_range) tg.dir = -Math.sign(off);
-        tg.root.position.addScaledVector(tg.lateral, tg.dir * tg.speed * dt);
+        const step = tg.speed * dt; const mv = tg.lateral.clone().multiplyScalar(tg.dir);
+        if (!this.pathClear(tg.root.position, mv, step)) { tg.dir = -tg.dir; mv.negate(); }
+        if (this.pathClear(tg.root.position, mv, step)) {
+          tg.root.position.addScaledVector(mv, step);
+          tg.root.position.y = this.groundY(tg.root.position.x, tg.root.position.y, tg.root.position.z); // follow ramps / steps
+        }
       } else if (sp.movement === "peek" && ty !== "hold") {
         tg.phase += dt; const k = (Math.sin(tg.phase * 1.4) + 1) / 2;
         tg.root.position.copy(tg.base).addScaledVector(tg.lateral, (1 - k) * sp.move_range);
@@ -751,7 +779,10 @@ export class Engine {
           }
         } else tg.acquired = null;
       }
-      tg.root.lookAt(this.pos.x, tg.root.position.y, this.pos.z);
+      // body, head and aim all turn together toward the player (their only target), with a human turn rate
+      const want = Math.atan2(this.pos.x - tg.root.position.x, this.pos.z - tg.root.position.z);
+      let dy = want - tg.root.rotation.y; dy = Math.atan2(Math.sin(dy), Math.cos(dy));
+      tg.root.rotation.y += dy * Math.min(1, dt * 9);
       if (ty === "hold" && this.t > tg.hideAt) { tg.active = false; tg.root.visible = false; }
     }
     // mode spawners

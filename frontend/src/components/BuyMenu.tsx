@@ -4,6 +4,8 @@ import { getManifest } from "@/game/assets";
 import { DEFAULT_LOADOUT, updateSettings, useSettings } from "@/lib/settings";
 import { useL } from "@/lib/i18n";
 import { useState } from "react";
+import { WeaponPreview } from "@/components/WeaponPreview";
+import { Check, Palette } from "lucide-react";
 
 const CAT: Record<string, [string, string]> = {
   sidearm: ["Tabancalar", "Sidearms"], smg: ["SMG", "SMGs"], shotgun: ["Pompalılar", "Shotguns"], rifle: ["Tüfekler", "Rifles"],
@@ -11,7 +13,7 @@ const CAT: Record<string, [string, string]> = {
 };
 
 /** Valorant-style buy menu: weapons + shields only (no credits). */
-export function BuyMenu({ allowed, onClose, onEquip }: { allowed?: string[]; onClose: () => void; onEquip?: (primary: string | null, secondary: string) => void }) {
+export function BuyMenu({ allowed, onClose, onEquip, onSkin }: { allowed?: string[]; onClose: () => void; onEquip?: (primary: string | null, secondary: string) => void; onSkin?: () => void }) {
   const L = useL(); const st = useSettings();
   const [sel, setSel] = useState<string>(st.loadout.primary ?? st.loadout.secondary);
   const man = useQuery({ queryKey: ["ka-manifest"], queryFn: getManifest, staleTime: Infinity });
@@ -26,16 +28,19 @@ export function BuyMenu({ allowed, onClose, onEquip }: { allowed?: string[]; onC
   };
   const shield = (id: ShieldId) => updateSettings((d) => { d.loadout.shield = d.loadout.shield === id ? "none" : id; });
   const thumb = (id: string) => man.data?.weapons[id]?.[0]?.thumb;
+  const skinOf = (id: string) => st.skins[id] ?? "default";
+  const skinName = (id: string) => { const k = skinOf(id); return k === "default" ? L("Standart", "Standard") : man.data?.weapons[id]?.find((x) => x.id === k)?.name ?? k; };
   const card = (id: string) => {
-    const x = WEAPON_BY_ID[id]; const eq = st.loadout.primary === id || st.loadout.secondary === id;
+    const x = WEAPON_BY_ID[id]; const eq = st.loadout.primary === id || st.loadout.secondary === id; const on = sel === id;
     return (
       <button key={id} data-testid={`buy-weapon-${id}`} onClick={() => buy(id)} onMouseEnter={() => setSel(id)} disabled={!ok(id)}
-        className={`chamfer-sm relative flex h-[86px] flex-col justify-between border px-3 py-2 text-left lift disabled:opacity-30 ${eq ? "border-val bg-val/20" : "border-white/10 bg-white/[0.04] hover:border-white/40"}`}>
+        className={`group relative flex h-[92px] flex-col justify-between overflow-hidden border px-3 py-2 text-left transition-[border-color,background-color,transform] duration-150 hover:-translate-y-0.5 disabled:opacity-25 ${eq ? "border-val bg-val/[0.16]" : on ? "border-white/50 bg-white/[0.08]" : "border-white/[0.08] bg-[#121922]/80 hover:border-white/30"}`}>
         <div className="flex items-start justify-between">
-          <span className="font-heading text-sm font-bold uppercase tracking-wider">{x.name}</span>
-          <span className="num text-[10px] text-sky">{x.fireRate} / {x.mag}</span>
+          <span className="font-heading text-[13px] font-bold uppercase tracking-[0.12em]">{x.name}</span>
+          {eq ? <Check size={14} className="text-val" /> : <span className="num text-[10px] text-dim">{x.mag}</span>}
         </div>
-        {thumb(id) ? <img src={thumb(id)} alt="" className="mx-auto h-10 object-contain opacity-90" loading="lazy" /> : <div className="h-10" />}
+        {thumb(id) ? <img src={thumb(id)} alt="" className="mx-auto h-11 object-contain opacity-80 transition-[opacity,transform] duration-200 group-hover:scale-105 group-hover:opacity-100" loading="lazy" /> : <div className="h-11" />}
+        {eq && <span className="absolute bottom-0 left-0 h-[3px] w-full bg-val" />}
       </button>
     );
   };
@@ -74,10 +79,20 @@ export function BuyMenu({ allowed, onClose, onEquip }: { allowed?: string[]; onC
         </div>
       </div>
       {w && (
-        <aside className="w-[340px] border-l border-white/10 bg-panel/90 p-6" data-testid="buy-detail-panel">
+        <aside className="w-[420px] overflow-auto border-l border-white/10 bg-[#0d1319]/95 p-7 scrollbar-thin anim-fade-up" data-testid="buy-detail-panel">
           <div className="overline">{L(...CAT[w.category] ?? ["", ""])}</div>
-          <h3 className="font-heading text-3xl font-black uppercase">{w.name}</h3>
-          {thumb(w.id) && <img src={thumb(w.id)} alt="" className="my-4 h-24 w-full object-contain" />}
+          <h3 className="font-heading text-4xl font-black uppercase leading-none" data-testid="buy-detail-name">{w.name}</h3>
+          <div className="relative my-4 h-52 border border-white/[0.06] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.07),transparent_70%)]">
+            <WeaponPreview weaponId={w.id} skin={skinOf(w.id)} className="absolute inset-0" />
+            <span className="pointer-events-none absolute bottom-2 left-3 text-[10px] uppercase tracking-widest text-dim">{L("Sürükle: döndür", "Drag to rotate")}</span>
+          </div>
+          <div className="mb-4 flex items-center justify-between border border-white/10 px-3 py-2">
+            <div><div className="text-[10px] uppercase text-dim">{L("Kaplama", "Skin")}</div><div className="font-heading text-sm font-bold uppercase" data-testid="buy-detail-skin">{skinName(w.id)}</div></div>
+            {onSkin && <button data-testid="buy-skin-btn" onClick={onSkin} className="flex items-center gap-1.5 border border-white/20 px-3 py-1.5 text-xs font-bold uppercase transition-colors duration-150 hover:bg-white/10"><Palette size={13} />{L("Değiştir", "Change")}</button>}
+          </div>
+          <button data-testid="buy-equip-btn" onClick={() => buy(w.id)} disabled={!ok(w.id)} className={`mb-5 w-full py-3 font-heading text-sm font-black uppercase tracking-wider transition-[background-color,transform] duration-150 hover:scale-[1.01] disabled:opacity-30 ${st.loadout.primary === w.id || st.loadout.secondary === w.id ? "border border-val text-val" : "bg-val"}`}>
+            {st.loadout.primary === w.id || st.loadout.secondary === w.id ? L("Kuşanıldı", "Equipped") : L("Kuşan", "Equip")}
+          </button>
           <div className="mb-4 space-y-2" data-testid="buy-stat-bars">
             {([[L("Atış hızı", "Fire rate"), w.fireRate / 16], [L("Gövde hasarı", "Body damage"), (damageAt(w, 0).body * (w.pellets ?? 1)) / 160], [L("Kafa hasarı", "Head damage"), damageAt(w, 0).head / 255], [L("Şarjör", "Magazine"), w.mag / 100], [L("Duvar delme", "Wall pen."), w.pen === "high" ? 1 : w.pen === "medium" ? 0.6 : 0.3]] as const).map(([k, v]) => (
               <div key={k} className="grid grid-cols-[96px_1fr] items-center gap-2 text-xs"><span className="text-dim">{k}</span><div className="h-1.5 bg-white/10"><div className="h-full bg-sky transition-[width] duration-300" style={{ width: `${Math.min(100, Math.max(6, v * 100))}%` }} /></div></div>))}

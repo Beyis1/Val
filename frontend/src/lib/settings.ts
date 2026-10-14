@@ -14,8 +14,9 @@ export const ACTIONS: ActionId[] = [
   "primary", "secondary", "melee", "buy", "scoreboard", "fire", "ads", "inspect",
 ];
 
-export interface ViewmodelAdjust { rx: number; ry: number; rz: number; scale: number; px: number; py: number; pz: number }
-export const DEFAULT_VM: ViewmodelAdjust = { rx: 0, ry: 0, rz: 0, scale: 1, px: 0, py: 0, pz: 0 };
+/** Per-weapon first-person tweak: weapon offset (m) / rotation (deg) / scale, left-hand offset (m, camera space), left-hand IK on/off, viewmodel FOV. */
+export interface ViewmodelAdjust { rx: number; ry: number; rz: number; scale: number; px: number; py: number; pz: number; lx: number; ly: number; lz: number; ik: number; fov: number }
+export const DEFAULT_VM: ViewmodelAdjust = { rx: 0, ry: 0, rz: 0, scale: 1, px: 0, py: 0, pz: 0, lx: 0, ly: 0, lz: 0, ik: 1, fov: 56 };
 
 export interface AppSettings {
   language: "tr" | "en";

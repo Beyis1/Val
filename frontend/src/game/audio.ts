@@ -1,6 +1,6 @@
 // Weapon / hit / kill / reload feedback (procedural Web Audio) + gameplay announcer clips.
-// The project ships no weapon sound files (the archive only provided announcer lines), so every gun gets its
-// own synthesized signature: body (low thump), crack (filtered noise) and tail, tuned per weapon character.
+// Weapons with user-supplied recordings (SAMPLES, public/sounds/<weapon>/) play those; every other gun keeps its own
+// synthesized signature: body (low thump), crack (filtered noise) and tail, tuned per weapon character.
 import { getSettings } from "@/lib/settings";
 
 let ctx: AudioContext | null = null;
@@ -81,6 +81,52 @@ export type SoundEvent = "WeaponFire" | "WeaponReload" | "WeaponEquip" | "HitCon
 const SKIN_VOICE: Record<string, Partial<GunVoice>> = {};
 export const skinHasAudio = (skinId: string) => skinId in SKIN_VOICE;
 
+// ---- recorded samples (user-supplied files in public/sounds/<weapon>/) — preferred over the procedural voices ----
+interface SampleSet { fire?: string; reload?: string; equip?: string; hit?: string }
+const SAMPLES: Record<string, SampleSet> = {
+  vandal: { fire: "/sounds/vandal/tap.mp3", reload: "/sounds/vandal/reload.mp3" },
+  phantom: { fire: "/sounds/phantom/tap.mp3", reload: "/sounds/phantom/reload.mp3" },
+  guardian: { fire: "/sounds/guardian/tap.mp3" },
+  operator: { fire: "/sounds/operator/tap.mp3", reload: "/sounds/operator/reload.mp3" },
+  knife: { fire: "/sounds/knife/swing.mp3", hit: "/sounds/knife/stab.mp3", equip: "/sounds/knife/equip.mp3" },
+};
+type Decoded = { buf: AudioBuffer; norm: number };
+const decoded = new Map<string, Promise<Decoded | null>>();
+const ready = new Map<string, Decoded>();
+function sample(url: string): Promise<Decoded | null> {
+  let p = decoded.get(url);
+  if (!p) {
+    p = fetch(url).then((r) => (r.ok ? r.arrayBuffer() : Promise.reject(new Error(String(r.status))))).then((a) => ac().decodeAudioData(a)).then((buf) => {
+      let peak = 0; for (let c = 0; c < buf.numberOfChannels; c++) { const d = buf.getChannelData(c); for (let i = 0; i < d.length; i += 4) peak = Math.max(peak, Math.abs(d[i])); }
+      const v = { buf, norm: peak > 0 ? Math.min(12, 0.32 / peak) : 1 }; ready.set(url, v); return v; // loudness-match quiet files
+    }).catch(() => null);
+    decoded.set(url, p);
+  }
+  return p;
+}
+/** Decode a weapon's samples ahead of time (called on equip) so the first shot has no latency. */
+// Kill banner sequence (always on, every weapon): 1st, 2nd, 3rd, 4th kill, then ACE — restarts after the ace / on restart.
+const KILL_FILES = ["/sounds/kill/1.mp3", "/sounds/kill/2.mp3", "/sounds/kill/3.mp3", "/sounds/kill/4.mp3", "/sounds/kill/5.mp3"];
+const HEADSHOT_FILE = "/sounds/hit/headshot.mp3";
+let killStreak = 0;
+export function resetKillStreak() { killStreak = 0; }
+/** Decode the always-used feedback sounds up front (first shot / first kill without latency). */
+export function preloadFeedback() { for (const f of [...KILL_FILES, HEADSHOT_FILE]) void sample(f); }
+/** debug: which sample URLs are decoded */
+export const decodedSamples = () => [...ready.keys()];
+export function preloadWeapon(id: string) { const s = SAMPLES[id]; if (!s) return; for (const u of [s.fire, s.reload, s.equip, s.hit]) if (u) void sample(u); }
+let fireVoice: { src: AudioBufferSourceNode; g: GainNode } | null = null;
+let reloadVoice: { src: AudioBufferSourceNode; g: GainNode } | null = null;
+function playBuf(d: Decoded, gain: number, rate = 1): { src: AudioBufferSourceNode; g: GainNode } {
+  const c = ac(); const src = c.createBufferSource(); src.buffer = d.buf; src.playbackRate.value = rate;
+  const g = c.createGain(); g.gain.value = gain * d.norm; src.connect(g).connect(sfxBus!); src.start(); return { src, g };
+}
+function fadeStop(v: { src: AudioBufferSourceNode; g: GainNode } | null, t = 0.03) {
+  if (!v || !ctx) return; const n = ctx.currentTime;
+  v.g.gain.cancelScheduledValues(n); v.g.gain.setValueAtTime(v.g.gain.value, n); v.g.gain.linearRampToValueAtTime(0, n + t);
+  try { v.src.stop(n + t + 0.01); } catch { /* already stopped */ }
+}
+
 // one voice per frame per weapon: auto-fire can never stack duplicate shots in the same tick
 let lastFire = 0;
 
@@ -89,6 +135,14 @@ export const sfx = {
   fire(weaponId: string, skinId = "default") {
     const s = getSettings().audio.fireSound; if (s === "off") return;
     const c = ac(); if (c.currentTime - lastFire < 0.012) return; lastFire = c.currentTime;
+    const smp = SAMPLES[weaponId]?.fire; const d = smp ? ready.get(smp) : undefined;
+    if (smp && !d) void sample(smp);
+    if (d && !SKIN_VOICE[skinId]) {
+      // each shot = full recorded shot; the previous shot's tail is cut short so auto-fire stays tight, the last tail rings out
+      fadeStop(fireVoice, 0.045);
+      fireVoice = playBuf(d, s === "soft" ? 0.45 : 1, 0.985 + Math.random() * 0.03);
+      return;
+    }
     const v = { ...(VOICE[weaponId] ?? VOICE.classic), ...(SKIN_VOICE[skinId] ?? {}) }; const lv = v.level * (s === "soft" ? 0.45 : 1);
     const dst = out(c, 0.9);
     tone(c, dst, v.body * (0.97 + Math.random() * 0.06), v.bodyLen, 0.5 * lv, "triangle", v.body * 0.4);
@@ -96,12 +150,26 @@ export const sfx = {
     burst(c, dst, v.tail, v.crack * 0.35, 0.22 * lv, "lowpass", 0.5, 0.01);
     if (v.mech) burst(c, dst, 0.03, v.mech, 0.12 * lv, "highpass", 1, 0.035);
   },
-  knife() { const c = ac(); const d = out(c, 0.8); burst(c, d, 0.12, 5200, 0.22, "bandpass", 2); },
-  equip(category: string) {
+  /** knife: swing on a miss, stab when the blade connects */
+  knife(hit = false) {
+    const u = hit ? SAMPLES.knife.hit! : SAMPLES.knife.fire!; const d0 = ready.get(u);
+    if (d0) { playBuf(d0, 0.9, 0.98 + Math.random() * 0.04); return; }
+    void sample(u); const c = ac(); const d = out(c, 0.8); burst(c, d, 0.12, 5200, 0.22, "bandpass", 2);
+  },
+  equip(category: string, weaponId = "") {
+    const eqf = SAMPLES[weaponId]?.equip; const e = eqf ? ready.get(eqf) : undefined;
+    if (e) { playBuf(e, 0.8); return; }
     const c = ac(); const d = out(c, 0.6);
     if (category === "melee") { burst(c, d, 0.18, 6500, 0.12, "highpass", 1); return; }
     burst(c, d, 0.05, 2400, 0.16, "bandpass", 3); burst(c, d, 0.04, 1500, 0.14, "bandpass", 3, 0.16);
   },
+  /** Recorded full reload for the weapon (stretched only by start offset, never pitch-shifted). false = no file -> use cues. */
+  reloadSample(weaponId: string): boolean {
+    const smp = SAMPLES[weaponId]?.reload; if (!smp) return false;
+    const d = ready.get(smp); if (!d) { void sample(smp); return false; }
+    fadeStop(reloadVoice); reloadVoice = playBuf(d, 0.9); return true;
+  },
+  stopReload() { fadeStop(reloadVoice, 0.06); reloadVoice = null; },
   reload(kind: "out" | "in" | "charge", category: string) {
     const c = ac(); const d = out(c, 0.7);
     if (kind === "out") { burst(c, d, 0.06, 1800, 0.18, "bandpass", 4); tone(c, d, 420, 0.05, 0.06, "square"); }
@@ -112,17 +180,18 @@ export const sfx = {
   /** body hit: short tick · head: bright two-tone "dink" (always distinct from body) */
   hit(zone: "head" | "body") {
     const a = getSettings().audio; const c = ac(); const d = out(c, 0.75);
-    if (zone === "head") { if (!a.headshotDink && a.hitSound === "off") return; tone(c, d, 2500, 0.16, 0.24); tone(c, d, 3700, 0.1, 0.12); return; }
+    if (zone === "head") { const h = ready.get(HEADSHOT_FILE); if (h) playBuf(h, 0.8); else { void sample(HEADSHOT_FILE); tone(c, d, 2500, 0.16, 0.24); tone(c, d, 3700, 0.1, 0.12); } return; }
     if (a.hitSound === "off") return;
     if (a.hitSound === "dink") tone(c, d, 1800, 0.08, 0.18);
     else if (a.hitSound === "pop") tone(c, d, 620, 0.06, 0.28, "square", 300);
     else tone(c, d, 1150, 0.035, 0.16, "square");
   },
-  /** kill confirm — separate from hits; headshot kills get a higher final note */
-  kill(head = false) {
-    const k = getSettings().audio.killSound; if (k === "off") return; const c = ac(); const d = out(c, 0.8);
-    if (k === "pulse") { tone(c, d, 220, 0.22, 0.3, "sawtooth", 110); return; }
-    tone(c, d, 880, 0.1, 0.2); tone(c, d, head ? 1760 : 1320, 0.16, 0.2, "sine", undefined, 0.07);
+  /** KillConfirm — kill banner sequence 1st..4th, ACE (fixed, not a setting). Called exactly once per death. */
+  kill(_head = false) {
+    const f = KILL_FILES[killStreak % KILL_FILES.length]; killStreak += 1;
+    const d = ready.get(f);
+    if (d) { playBuf(d, 0.85); return; }
+    void sample(f); const c = ac(); const o = out(c, 0.8); tone(c, o, 880, 0.1, 0.2); tone(c, o, 1320, 0.16, 0.2, "sine", undefined, 0.07);
   },
   /** enemy fire: distance attenuation + stereo pan from the bot's direction */
   botShot(dist: number, pan: number) {

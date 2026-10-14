@@ -178,9 +178,10 @@ export default function Play() {
       )}
       {status === "paused" && !result && !overlay && (
         <PauseMenu scenario={sc} fps={hud?.fps ?? 0} onResume={() => engine?.resume()} onRestart={() => engine?.restart()}
-          onWeapons={() => setOverlay("buy")} onSkins={() => setOverlay("skin")} onMenu={toMenu} onQuit={quitGame} />
+          onWeapons={() => setOverlay("buy")} onSkins={() => setOverlay("skin")} onMenu={toMenu} onQuit={quitGame}
+          weaponId={engine?.weapon.id ?? "vandal"} onSlot={async (n) => { await engine?.equip(n, true); return engine?.weapon.id ?? "vandal"; }} />
       )}
-      {overlay === "buy" && <BuyMenu allowed={sc.allowed_weapons} onClose={closeOverlay} onEquip={(p, s) => engine?.setLoadout(p, s)} />}
+      {overlay === "buy" && <BuyMenu allowed={sc.allowed_weapons} onClose={closeOverlay} onEquip={(p, s) => engine?.setLoadout(p, s)} onSkin={() => setOverlay("skin")} />}
       {overlay === "skin" && <SkinWindow initial={hud?.weaponId} onClose={() => { closeOverlay(); engine?.buildViewmodel(); }} />}
       {result && (
         <div className="absolute inset-0 grid place-items-center bg-black/70 backdrop-blur-sm" data-testid="results-panel">
