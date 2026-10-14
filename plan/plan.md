@@ -108,6 +108,20 @@ Diğer anonslar eklenmiyor.
 **Dil**
 TR/EN seçimi var ve tercih kaydediliyor.
 
+**Performans (yeni)**
+- Hedef her haritada ve modda en az 120 FPS. Görüntü kalitesi gözle görülür biçimde düşürülmüyor.
+- Çözünürlük ölçeği varsayılan olarak %100.
+  - FPS 120'nin altına inerse ölçek kendiliğinden düşüyor, ama en fazla %90'a kadar; daha aşağı inmiyor.
+  - FPS toparlanınca ölçek tekrar %100'e çıkıyor.
+  - Ayarlar > Görüntü'den otomatik ölçek kapatılabiliyor veya ölçek %90–100 arasında elle sabitlenebiliyor.
+- Modeller bu hedefe göre optimize ediliyor; harita, ajan, kol, silah ve kaplamaların hepsi kapsamda:
+  - Yakındaki nesneler tam detayda kalıyor. Uzaktakiler ve harita dışındaki arka plan yapıları sadeleştiriliyor.
+  - Aynı nesneler tek seferde çiziliyor; ekranda görünmeyen kısımlar hiç çizilmiyor.
+  - Dokular ekran kartı belleğinde az yer kaplayan sıkıştırılmış biçimde tutuluyor. Haritalarda doku keskinliği korunuyor.
+  - Rakip ajanların uzaktan daha hafif bir sürümü kullanılıyor. Kolların ve silahların modeli tam detayda kalıyor.
+- Oyun içinde FPS sayacı gösterilebiliyor. Kare hızı sınırı Ayarlar'dan seçiliyor: sınırsız, 144, 165, 240.
+- Her harita, en kalabalık senaryo düzeninde (bütün botlar ekranda) FPS açısından ölçülüyor. Hedefi tutturamayan harita, ayrıntısıyla birlikte size bildiriliyor.
+
 ## Kullanıcı akışı
 1. Uygulama Atölye ile açılır. Harita filtresiyle senaryo seçilir; isteğe göre favorilere eklenir.
 2. Senaryo açılışında harita görseli, mini harita ve açıklama görülür, ardından "Başlamak için tıkla"ya basılır. Oyun tam ekrana geçer.
@@ -138,6 +152,8 @@ TR/EN seçimi var ve tercih kaydediliyor.
 - Ayrı kaplama penceresi; GLB ile model değiştirme
 - Senaryo olaylarına uygun anons sesleri
 - Kayıtlar sayfası; tüm ayar sekmeleri, canlı önizleme ve nişangah kodu
+- 120 FPS hedefli optimizasyon: %90 tabanlı otomatik çözünürlük ölçeği, model ve doku optimizasyonu, FPS sayacı
+- Faz 1 bitince önizleme bağlantısı paylaşılıyor; her şeyi kendiniz deneyebiliyorsunuz. Hangi haritaların ve modellerin eklendiği ve hangilerinin sorun çıkardığı da bu sırada bildiriliyor.
 
 **Faz 2 — sonra**
 - Rakip havuzunun 28 ajanın tamamına çıkarılması ve havuzun ayarlardan seçilebilmesi
@@ -159,4 +175,6 @@ TR/EN seçimi var ve tercih kaydediliyor.
 - Varsayılan donanım Vandal + Classic + Ağır zırh. "Varsayılan" düğmesi bu donanıma döndürüyor.
 - Eğilme tuşu varsayılan olarak Sol Ctrl, yedeği C. Oyun tam ekranda tuşları yakaladığı için Ctrl+W sekmeyi kapatmıyor.
 - Haritalardaki hazır senaryoların başlangıç noktaları ve bot yerleri, haritanın yürünebilir alanından otomatik seçiliyor. Editörde istenildiği gibi değiştirilebiliyor.
+- 120 FPS hedefi, Valorant'ı yüksek ayarlarda rahatça açan bir oyun bilgisayarı için geçerli (1080p, güncel Opera, donanım hızlandırma açık). FPS, sunucuya değil sizin bilgisayarınıza bağlı. Önizleme ortamında haritaların ilk indirilmesi daha yavaş olabilir; bu kare hızını etkilemiyor.
+- Opera'da "donanım hızlandırma" kapalıysa veya batarya tasarrufu açıksa FPS düşük kalır. Uygulama bu durumu fark edip uyarı gösteriyor.
 - Haritalar, ajanlar, silahlar ve sesler Riot Games'e ait oyun içerikleri. Uygulama kişisel kullanım için; herkese açık yayınlanması hak sorunu doğurabilir.
