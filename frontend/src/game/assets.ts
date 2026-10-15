@@ -9,14 +9,42 @@ export interface KAManifest { weapons: Record<string, SkinEntry[]>; agents: stri
 const loader = new GLTFLoader();
 loader.setMeshoptDecoder(MeshoptDecoder);
 const cache = new Map<string, Promise<GLTF>>();
+const archiveFallbacks: Record<string, string> = {
+  "/ka/fp/jett.glb": "https://kingdomarchives.com/uploads/models/agents_fp/jett_fp/jett_fp.glb",
+  "/ka/weapons/vandal/default.glb": "https://kingdomarchives.com/uploads/models/weapons/vandal/standard/vandal.glb",
+};
+
+function reportProgress(callback: ((p: number) => void) | undefined, value: number) {
+  try { callback?.(value); } catch (error) { console.warn("Model progress callback failed:", error); }
+}
 
 export function loadGLTF(url: string, onProgress?: (p: number) => void): Promise<GLTF> {
   const hit = cache.get(url);
-  if (hit) { onProgress?.(1); return hit; }
-  const p = new Promise<GLTF>((res, rej) =>
-    loader.load(url, res, (e) => { if (e.total) onProgress?.(e.loaded / e.total); }, rej));
+  if (hit) {
+    if (onProgress) void hit.then(() => reportProgress(onProgress, 1), () => undefined);
+    return hit;
+  }
+  const attempt = (source: string): Promise<GLTF> => new Promise((resolve, reject) => {
+    loader.load(source, resolve, (event) => {
+      if (event.total) reportProgress(onProgress, Math.min(0.99, event.loaded / event.total));
+    }, reject);
+  });
+  reportProgress(onProgress, 0);
+  const p = attempt(url).catch((primaryError: unknown) => {
+    const fallback = archiveFallbacks[url];
+    if (!fallback) throw primaryError;
+    console.warn("Local model failed; trying Kingdom Archives:", url, primaryError);
+    reportProgress(onProgress, 0);
+    return attempt(fallback).catch((fallbackError: unknown) => {
+      console.error("Archive model also failed:", fallback, fallbackError);
+      throw new Error(`Model could not be loaded from either ${url} or ${fallback}. Check network/CORS and GLB compatibility.`);
+    });
+  }).then((gltf) => {
+    reportProgress(onProgress, 1);
+    return gltf;
+  });
   cache.set(url, p);
-  p.catch(() => cache.delete(url));
+  void p.catch(() => { if (cache.get(url) === p) cache.delete(url); });
   return p;
 }
 
